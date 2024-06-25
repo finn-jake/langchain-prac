@@ -8,7 +8,7 @@ from pydantic import BaseModel
 
 api_version = "2024-02-01"
 azure_endpoint = "https://hatcheryopenaicanadaeast.openai.azure.com/"
-api_key = "14a3d1c6a6094c6a8950c1f1ddad33a6"
+api_key = "API_KEY"
 model = "hatcheryOpenaiCanadaGPT4"
 
 client = AzureOpenAI(
