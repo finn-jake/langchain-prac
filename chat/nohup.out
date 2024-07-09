@@ -1,0 +1,622 @@
+INFO:     Started server process [157806]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:123 (Press CTRL+C to quit)
+
+Collecting usage statistics. To deactivate, set browser.gatherUsageStats to false.
+
+
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8501
+  Network URL: http://103.57.61.86:8501
+  External URL: http://103.57.61.86:8501
+
+hi?
+INFO:     127.0.0.1:45390 - "POST /chat HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+INFO:     106.75.11.194:45780 - "GET / HTTP/1.1" 404 Not Found
+INFO:     106.75.168.236:39200 - "GET / HTTP/1.1" 404 Not Found
+INFO:     106.75.168.236:39206 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+몽고 DB에서 mallName은 "쿠팡"인 documents들의 productId를 추출하는 파이썬 코드
+INFO:     127.0.0.1:57316 - "POST /chat HTTP/1.1" 200 OK
+몽고DB에서 mallUrl만 추출하는 query
+INFO:     127.0.0.1:46226 - "POST /chat HTTP/1.1" 200 OK
+dall-e api와 streamlit을 활용해서 프롬프트를 입력받아 생성된 이미지를 보여주는 파이썬 코드
+INFO:     127.0.0.1:52222 - "POST /chat HTTP/1.1" 200 OK
+다음 문장 영어로 번역해줘
+
+"상상하는 뭐든지 이뤄질거야"
+INFO:     127.0.0.1:58572 - "POST /chat HTTP/1.1" 200 OK
+INFO:     52.76.71.100:4601 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+INFO:     123.254.109.180:52024 - "GET / HTTP/1.1" 404 Not Found
+INFO:     123.254.109.180:52608 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     123.254.109.180:52644 - "GET /robots.txt HTTP/1.1" 404 Not Found
+INFO:     123.254.109.180:52682 - "GET /sitemap.xml HTTP/1.1" 404 Not Found
+INFO:     172.232.203.84:31407 - "GET / HTTP/1.0" 404 Not Found
+INFO:     172.232.203.84:8779 - "GET /odinhttpcall1720061481 HTTP/1.1" 404 Not Found
+INFO:     172.232.203.84:16203 - "GET / HTTP/1.0" 404 Not Found
+INFO:     172.232.203.84:9677 - "POST /sdk HTTP/1.1" 404 Not Found
+INFO:     172.232.203.84:7329 - "GET /HNAP1 HTTP/1.1" 404 Not Found
+INFO:     172.232.203.84:21765 - "GET /evox/about HTTP/1.1" 404 Not Found
+INFO:     172.232.203.84:14821 - "GET / HTTP/1.0" 404 Not Found
+INFO:     172.232.203.84:9105 - "GET / HTTP/1.1" 404 Not Found
+INFO:     172.232.203.52:45236 - "GET /query?q=SHOW+DIAGNOSTICS HTTP/1.1" 404 Not Found
+INFO:     172.232.203.52:45220 - "GET /solr/admin/info/system HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+INFO:     172.232.195.6:2242 - "GET /cgi-bin/authLogin.cgi HTTP/1.1" 404 Not Found
+INFO:     172.232.195.11:51424 - "GET /v2/_catalog HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+INFO:     172.232.203.52:45250 - "GET /solr/admin/cores?action=STATUS&wt=json HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+INFO:     172.232.203.47:19792 - "GET / HTTP/1.1" 404 Not Found
+INFO:     52.76.71.100:41224 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+hi
+INFO:     127.0.0.1:39700 - "POST /chat HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+아아아아아아악
+INFO:     127.0.0.1:47188 - "POST /chat HTTP/1.1" 200 OK
+살려줘~~
+INFO:     127.0.0.1:34870 - "POST /chat HTTP/1.1" 200 OK
+...
+INFO:     127.0.0.1:40202 - "POST /chat HTTP/1.1" 200 OK
+살려줘~~~
+INFO:     127.0.0.1:46552 - "POST /chat HTTP/1.1" 200 OK
+...
+INFO:     127.0.0.1:43408 - "POST /chat HTTP/1.1" 200 OK
+엑셀 필터푸는 단축키가 머더러..
+INFO:     127.0.0.1:44938 - "POST /chat HTTP/1.1" 200 OK
+이 나이에 벌써 눈이 침침합니다
+INFO:     127.0.0.1:39172 - "POST /chat HTTP/1.1" 200 OK
+엑셀 필터푸는 단축키가 머더러..
+INFO:     127.0.0.1:38284 - "POST /chat HTTP/1.1" 200 OK
+이 나이에 벌써 눈이 침침합니다
+INFO:     127.0.0.1:51562 - "POST /chat HTTP/1.1" 200 OK
+ㅠㅠ
+INFO:     127.0.0.1:52824 - "POST /chat HTTP/1.1" 200 OK
+나이!
+INFO:     127.0.0.1:52816 - "POST /chat HTTP/1.1" 200 OK
+나이와 함께! 
+INFO:     127.0.0.1:52806 - "POST /chat HTTP/1.1" 200 OK
+T-T
+INFO:     127.0.0.1:37634 - "POST /chat HTTP/1.1" 200 OK
+OTL
+INFO:     127.0.0.1:52088 - "POST /chat HTTP/1.1" 200 OK
+다음 문장 영어로 번역해줘
+
+"여름 방학을 즐기는 용왕님이 있고 옆에서 시중을 드는 멍게가 있다.
+용왕님은 선글라스를 끼고 바닷속에 스며드는 햇빛을 즐기고 있고, 멍게는 옆에서 커피 만들고 있다.
+용왕님이 오랜만에 즐기는 여유는 다른 바다 생명들의 활기를 채워준다.
+일러스트 화풍으로 이미지 만들어줘."
+INFO:     127.0.0.1:57392 - "POST /chat HTTP/1.1" 200 OK
+please elaborate on the quote above ~
+INFO:     127.0.0.1:35850 - "POST /chat HTTP/1.1" 200 OK
+i thought you'd be able to see the above quote .. ^^ 
+INFO:     127.0.0.1:46832 - "POST /chat HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+INFO:     173.230.129.30:35342 - "GET / HTTP/1.0" 404 Not Found
+INFO:     104.237.130.137:56160 - "GET / HTTP/1.1" 404 Not Found
+hi
+INFO:     127.0.0.1:34446 - "POST /chat HTTP/1.1" 200 OK
+who are you?
+INFO:     127.0.0.1:40968 - "POST /chat HTTP/1.1" 200 OK
+what is your best function?
+INFO:     127.0.0.1:47388 - "POST /chat HTTP/1.1" 200 OK
+INFO:     172.232.209.164:32229 - "GET / HTTP/1.0" 404 Not Found
+INFO:     172.232.209.164:21853 - "GET / HTTP/1.0" 404 Not Found
+INFO:     172.232.209.164:26807 - "POST /sdk HTTP/1.1" 404 Not Found
+INFO:     172.232.209.164:20509 - "GET /odinhttpcall1720409618 HTTP/1.1" 404 Not Found
+INFO:     172.232.209.164:31343 - "GET /HNAP1 HTTP/1.1" 404 Not Found
+INFO:     172.232.209.164:8639 - "GET /evox/about HTTP/1.1" 404 Not Found
+INFO:     172.232.209.164:29641 - "GET / HTTP/1.0" 404 Not Found
+INFO:     172.232.209.164:10697 - "GET / HTTP/1.1" 404 Not Found
+INFO:     172.232.194.29:58700 - "GET /solr/admin/info/system HTTP/1.1" 404 Not Found
+INFO:     172.232.206.132:11320 - "GET /v2/_catalog HTTP/1.1" 404 Not Found
+INFO:     172.232.206.34:43508 - "GET / HTTP/1.1" 404 Not Found
+INFO:     172.232.206.237:50428 - "GET /cgi-bin/authLogin.cgi HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+INFO:     172.232.194.228:29876 - "GET /query?q=SHOW+DIAGNOSTICS HTTP/1.1" 404 Not Found
+INFO:     52.76.71.100:12918 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     172.232.194.29:58710 - "GET /solr/admin/cores?action=STATUS&wt=json HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+INFO:     172.232.194.196:8175 - "GET / HTTP/1.0" 404 Not Found
+INFO:     172.232.194.196:19207 - "POST /sdk HTTP/1.1" 404 Not Found
+INFO:     172.232.194.196:20361 - "GET /odinhttpcall1720410781 HTTP/1.1" 404 Not Found
+INFO:     172.232.194.196:25119 - "GET / HTTP/1.0" 404 Not Found
+INFO:     172.232.194.196:26129 - "GET /HNAP1 HTTP/1.1" 404 Not Found
+INFO:     172.232.194.196:6529 - "GET /evox/about HTTP/1.1" 404 Not Found
+INFO:     172.232.194.196:20095 - "GET / HTTP/1.0" 404 Not Found
+INFO:     172.232.194.196:7785 - "GET / HTTP/1.1" 404 Not Found
+INFO:     172.232.194.228:10996 - "GET /solr/admin/info/system HTTP/1.1" 404 Not Found
+INFO:     172.232.206.132:27600 - "GET /query?q=SHOW+DIAGNOSTICS HTTP/1.1" 404 Not Found
+INFO:     172.232.194.134:9142 - "GET /cgi-bin/authLogin.cgi HTTP/1.1" 404 Not Found
+INFO:     172.232.194.100:29328 - "GET /v2/_catalog HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+INFO:     172.232.206.132:27588 - "GET / HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+INFO:     52.76.71.100:19363 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     172.232.194.228:7678 - "GET /solr/admin/cores?action=STATUS&wt=json HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+INFO:     172.232.194.146:4173 - "GET / HTTP/1.0" 404 Not Found
+INFO:     172.232.194.146:1499 - "GET /odinhttpcall1720410959 HTTP/1.1" 404 Not Found
+INFO:     172.232.194.146:2669 - "GET / HTTP/1.0" 404 Not Found
+INFO:     172.232.194.146:22167 - "POST /sdk HTTP/1.1" 404 Not Found
+INFO:     172.232.194.146:12921 - "GET /evox/about HTTP/1.1" 404 Not Found
+INFO:     172.232.194.146:24817 - "GET /HNAP1 HTTP/1.1" 404 Not Found
+INFO:     172.232.194.146:12629 - "GET / HTTP/1.0" 404 Not Found
+INFO:     172.232.194.146:13537 - "GET / HTTP/1.1" 404 Not Found
+INFO:     172.232.220.233:18682 - "GET /query?q=SHOW+DIAGNOSTICS HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+INFO:     172.232.192.131:63880 - "GET / HTTP/1.1" 404 Not Found
+INFO:     172.232.220.233:18694 - "GET /solr/admin/info/system HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+INFO:     172.232.194.28:60320 - "GET /v2/_catalog HTTP/1.1" 404 Not Found
+INFO:     172.232.194.100:33030 - "GET /cgi-bin/authLogin.cgi HTTP/1.1" 404 Not Found
+INFO:     52.76.71.100:61453 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+INFO:     172.232.220.233:18706 - "GET /solr/admin/cores?action=STATUS&wt=json HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+what is your favorite food?
+INFO:     127.0.0.1:42128 - "POST /chat HTTP/1.1" 200 OK
+hello
+INFO:     127.0.0.1:47064 - "POST /chat HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+오늘 삼성 주식 가격 알려줘
+INFO:     127.0.0.1:58588 - "POST /chat HTTP/1.1" 200 OK
+인터넷 서핑 기능은 없니?
+INFO:     127.0.0.1:36572 - "POST /chat HTTP/1.1" 200 OK
+hi
+INFO:     127.0.0.1:41208 - "POST /chat HTTP/1.1" 200 OK
+what is your name?
+INFO:     127.0.0.1:60522 - "POST /chat HTTP/1.1" 200 OK
+show me the purpose of you
+INFO:     127.0.0.1:54488 - "POST /chat HTTP/1.1" 200 OK
+hi
+INFO:     127.0.0.1:60098 - "POST /chat HTTP/1.1" 200 OK
+2024-07-09 11:00:38.741 Uncaught app exception
+Traceback (most recent call last):
+  File "/home/dongha/openai/lib/python3.10/site-packages/urllib3/connection.py", line 196, in _new_conn
+    sock = connection.create_connection(
+  File "/home/dongha/openai/lib/python3.10/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/home/dongha/openai/lib/python3.10/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/dongha/openai/lib/python3.10/site-packages/urllib3/connectionpool.py", line 789, in urlopen
+    response = self._make_request(
+  File "/home/dongha/openai/lib/python3.10/site-packages/urllib3/connectionpool.py", line 495, in _make_request
+    conn.request(
+  File "/home/dongha/openai/lib/python3.10/site-packages/urllib3/connection.py", line 398, in request
+    self.endheaders()
+  File "/usr/lib/python3.10/http/client.py", line 1278, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.10/http/client.py", line 1038, in _send_output
+    self.send(msg)
+  File "/usr/lib/python3.10/http/client.py", line 976, in send
+    self.connect()
+  File "/home/dongha/openai/lib/python3.10/site-packages/urllib3/connection.py", line 236, in connect
+    self.sock = self._new_conn()
+  File "/home/dongha/openai/lib/python3.10/site-packages/urllib3/connection.py", line 211, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x7b388c7ff7f0>: Failed to establish a new connection: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/dongha/openai/lib/python3.10/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+  File "/home/dongha/openai/lib/python3.10/site-packages/urllib3/connectionpool.py", line 843, in urlopen
+    retries = retries.increment(
+  File "/home/dongha/openai/lib/python3.10/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=123): Max retries exceeded with url: /chat (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7b388c7ff7f0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/dongha/openai/lib/python3.10/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 589, in _run_script
+    exec(code, module.__dict__)
+  File "/home/dongha/langchain-prac/chat/_ui/app.py", line 101, in <module>
+    chat_main()
+  File "/home/dongha/langchain-prac/chat/_ui/app.py", line 79, in chat_main
+    assistant_response = request_chat_api(message)
+  File "/home/dongha/langchain-prac/chat/_ui/app.py", line 23, in request_chat_api
+    resp = requests.post(
+  File "/home/dongha/openai/lib/python3.10/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/home/dongha/openai/lib/python3.10/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/dongha/openai/lib/python3.10/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/dongha/openai/lib/python3.10/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/dongha/openai/lib/python3.10/site-packages/requests/adapters.py", line 700, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=123): Max retries exceeded with url: /chat (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7b388c7ff7f0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+2024-07-09 11:01:59.393 Uncaught app exception
+Traceback (most recent call last):
+  File "/home/dongha/openai/lib/python3.10/site-packages/requests/models.py", line 974, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "/usr/lib/python3.10/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "/usr/lib/python3.10/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/usr/lib/python3.10/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/dongha/openai/lib/python3.10/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 589, in _run_script
+    exec(code, module.__dict__)
+  File "/home/dongha/langchain-prac/chat/_ui/app.py", line 101, in <module>
+    chat_main()
+  File "/home/dongha/langchain-prac/chat/_ui/app.py", line 79, in chat_main
+    assistant_response = request_chat_api(message)
+  File "/home/dongha/langchain-prac/chat/_ui/app.py", line 30, in request_chat_api
+    resp = resp.json()
+  File "/home/dongha/openai/lib/python3.10/site-packages/requests/models.py", line 978, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2024-07-09 11:02:25.559 Uncaught app exception
+Traceback (most recent call last):
+  File "/home/dongha/openai/lib/python3.10/site-packages/requests/models.py", line 974, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "/usr/lib/python3.10/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "/usr/lib/python3.10/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/usr/lib/python3.10/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/dongha/openai/lib/python3.10/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 589, in _run_script
+    exec(code, module.__dict__)
+  File "/home/dongha/langchain-prac/chat/_ui/app.py", line 101, in <module>
+    chat_main()
+  File "/home/dongha/langchain-prac/chat/_ui/app.py", line 79, in chat_main
+    assistant_response = request_chat_api(message)
+  File "/home/dongha/langchain-prac/chat/_ui/app.py", line 30, in request_chat_api
+    resp = resp.json()
+  File "/home/dongha/openai/lib/python3.10/site-packages/requests/models.py", line 978, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2024-07-09 11:10:13.727 Uncaught app exception
+Traceback (most recent call last):
+  File "/home/dongha/openai/lib/python3.10/site-packages/requests/models.py", line 974, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "/usr/lib/python3.10/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "/usr/lib/python3.10/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/usr/lib/python3.10/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/dongha/openai/lib/python3.10/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 589, in _run_script
+    exec(code, module.__dict__)
+  File "/home/dongha/langchain-prac/chat/_ui/app.py", line 101, in <module>
+    chat_main()
+  File "/home/dongha/langchain-prac/chat/_ui/app.py", line 79, in chat_main
+    assistant_response = request_chat_api(message)
+  File "/home/dongha/langchain-prac/chat/_ui/app.py", line 30, in request_chat_api
+    resp = resp.json()
+  File "/home/dongha/openai/lib/python3.10/site-packages/requests/models.py", line 978, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2024-07-09 13:13:07.567 Uncaught app exception
+Traceback (most recent call last):
+  File "/home/dongha/openai/lib/python3.10/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 589, in _run_script
+    exec(code, module.__dict__)
+  File "/home/dongha/langchain-prac/chat/_ui/app.py", line 61, in <module>
+    chat_main()
+  File "/home/dongha/langchain-prac/chat/_ui/app.py", line 58, in chat_main
+    asyncio.create_task(handle_chat(message))
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 336, in create_task
+    loop = events.get_running_loop()
+RuntimeError: no running event loop
+/home/dongha/openai/lib/python3.10/site-packages/streamlit/runtime/scriptrunner/script_runner.py:683: RuntimeWarning: coroutine 'handle_chat' was never awaited
+  gc.collect(2)
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+2024-07-09 13:29:58.762 Invalid arguments were passed to "st.write" function. Support for passing such unknown keywords arguments will be dropped in future. Invalid arguments were: {'devider': 'orange'}
+2024-07-09 13:30:10.176 Invalid arguments were passed to "st.write" function. Support for passing such unknown keywords arguments will be dropped in future. Invalid arguments were: {'devider': 'orange'}
+2024-07-09 13:30:16.765 Invalid arguments were passed to "st.write" function. Support for passing such unknown keywords arguments will be dropped in future. Invalid arguments were: {'devider': 'orange'}
+2024-07-09 13:30:55.828 Invalid arguments were passed to "st.write" function. Support for passing such unknown keywords arguments will be dropped in future. Invalid arguments were: {'devider': 'orange'}
+2024-07-09 13:33:11.380 Invalid arguments were passed to "st.write" function. Support for passing such unknown keywords arguments will be dropped in future. Invalid arguments were: {'devider': 'orange'}
+2024-07-09 13:34:38.409 Invalid arguments were passed to "st.write" function. Support for passing such unknown keywords arguments will be dropped in future. Invalid arguments were: {'devider': 'orange'}
+2024-07-09 13:34:52.174 Invalid arguments were passed to "st.write" function. Support for passing such unknown keywords arguments will be dropped in future. Invalid arguments were: {'devider': 'orange'}
+2024-07-09 13:35:22.582 Invalid arguments were passed to "st.write" function. Support for passing such unknown keywords arguments will be dropped in future. Invalid arguments were: {'devider': 'orange'}
+2024-07-09 13:37:07.538 Uncaught app exception
+Traceback (most recent call last):
+  File "/home/dongha/openai/lib/python3.10/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 589, in _run_script
+    exec(code, module.__dict__)
+  File "/home/dongha/langchain-prac/chat/_ui/app.py", line 61, in <module>
+    chat_main()  # 챗봇 애플리케이션 시작
+  File "/home/dongha/langchain-prac/chat/_ui/app.py", line 53, in chat_main
+    init_session_state()  # 세션 상태를 초기화
+  File "/home/dongha/langchain-prac/chat/_ui/app.py", line 24, in init_session_state
+    st.divider("orange")  # 긍정적인 인용구를 출력
+  File "/home/dongha/openai/lib/python3.10/site-packages/streamlit/runtime/metrics_util.py", line 408, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+TypeError: MarkdownMixin.divider() takes 1 positional argument but 2 were given
+hi?
+<Response [200]>
+몽고 DB에서 mallName은 "쿠팡"인 documents들의 productId를 추출하는 파이썬 코드
+<Response [200]>
+몽고DB에서 mallUrl만 추출하는 query
+<Response [200]>
+dall-e api와 streamlit을 활용해서 프롬프트를 입력받아 생성된 이미지를 보여주는 파이썬 코드
+<Response [200]>
+다음 문장 영어로 번역해줘
+
+"상상하는 뭐든지 이뤄질거야"
+<Response [200]>
+hi
+<Response [200]>
+아아아아아아악
+<Response [200]>
+살려줘~~
+<Response [200]>
+...
+<Response [200]>
+살려줘~~~
+<Response [200]>
+...
+<Response [200]>
+엑셀 필터푸는 단축키가 머더러..
+이 나이에 벌써 눈이 침침합니다
+<Response [200]>
+<Response [200]>
+엑셀 필터푸는 단축키가 머더러..
+<Response [200]>
+이 나이에 벌써 눈이 침침합니다
+<Response [200]>
+나이와 함께! 
+나이!
+ㅠㅠ
+<Response [200]>
+<Response [200]>
+<Response [200]>
+T-T
+<Response [200]>
+OTL
+<Response [200]>
+다음 문장 영어로 번역해줘
+
+"여름 방학을 즐기는 용왕님이 있고 옆에서 시중을 드는 멍게가 있다.
+용왕님은 선글라스를 끼고 바닷속에 스며드는 햇빛을 즐기고 있고, 멍게는 옆에서 커피 만들고 있다.
+용왕님이 오랜만에 즐기는 여유는 다른 바다 생명들의 활기를 채워준다.
+일러스트 화풍으로 이미지 만들어줘."
+<Response [200]>
+please elaborate on the quote above ~
+<Response [200]>
+i thought you'd be able to see the above quote .. ^^ 
+<Response [200]>
+hi
+<Response [200]>
+who are you?
+<Response [200]>
+what is your best function?
+<Response [200]>
+what is your favorite food?
+<Response [200]>
+hello
+<Response [200]>
+오늘 삼성 주식 가격 알려줘
+<Response [200]>
+인터넷 서핑 기능은 없니?
+<Response [200]>
+hi
+<Response [200]>
+what is your name?
+<Response [200]>
+show me the purpose of you
+<Response [200]>
+hi
+<Response [200]>
+hi
+hi
+<Response [500]>
+hi
+<Response [500]>
+hi
+<Response [200]>
+hi
+hi
+what is your name?
+what is the topic of movie, god father
+you're so amazing
+what about god father's real name?
+오늘 투자하기 좋은 종목이 어떤게 있을까?
+내 이름은 김동하야
+내 이름이 뭐라고?
+위 채팅 기록을 지워줘
+hello, if you don't mind could you introduce yourself?
+you're so kind, aren't you?
+다음 코드에 주석을 달아줄 수 있어?
+
+import streamlit as st
+import asyncio
+import httpx
+
+API_BASE_URL = "http://localhost:123/chat"
+
+async def request_chat_api(message: str):
+    async with httpx.AsyncClient() as client:
+        async with client.stream("POST", API_BASE_URL, json={"message": message}, timeout=None) as response:
+            async for chunk in response.aiter_text():
+                yield chunk
+
+def get_prompt_parsing_assistant():
+    return "You are an assistant who helps people live their lives more energetically."
+
+def init_session_state():
+    st.title("Simple chat with GPT 4.0")
+    st.write("For assistant manager")
+    st.write("Let your smile change the world, but don't let the world change your smile. This quote can bring positivity and joy to someone's day.")
+
+    # Initialize chat history
+    if "messages" not in st.session_state:
+        st.session_state.messages = []
+
+    # Display chat messages from history on app rerun
+    for message in st.session_state.messages:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
+
+async def handle_chat(message: str):
+    st.session_state.messages.append({"role": "user", "content": message})
+    with st.chat_message("user"):
+        st.markdown(message)
+    print(message)
+
+    full_response = ""
+    message_placeholder = st.empty()
+    async for chunk in request_chat_api(message):
+        full_response += chunk
+        message_placeholder.markdown(full_response)
+        await asyncio.sleep(0.05)
+
+    st.session_state.messages.append({"role": "assistant", "content": full_response})
+
+def chat_main():
+    init_session_state()
+    
+    if message := st.chat_input(""):
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        loop.run_until_complete(handle_chat(message))
+
+if __name__ == "__main__":
+    chat_main()
+hi
+내 기분이 어떻게 하면 좋아질까?
+hi
+what is current big issue?
+hello
+다음 코드에 주석 달아줘
+
+import os
+
+from openai import AzureOpenAI, AsyncAzureOpenAI
+from fastapi import FastAPI
+from fastapi.responses import StreamingResponse
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+
+
+api_version = "2024-02-01"
+azure_endpoint = "https://hatcheryopenaicanadaeast.openai.azure.com/"
+api_key = "14a3d1c6a6094c6a8950c1f1ddad33a6"
+model = "hatcheryOpenaiCanadaGPT4o"
+
+client = AsyncAzureOpenAI(
+    api_version=api_version,
+    azure_endpoint=azure_endpoint,
+    api_key = api_key)
+
+
+app = FastAPI(debug = True)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins = ["*"],
+    allow_credentials = True,
+    allow_methods = ["*"],
+    allow_headers = ["*"]
+)
+
+
+class ChatRequest(BaseModel):
+    message: str
+
+
+def get_prompt_parsing_assistant():
+    return "You are an assistant who explains everything that people are curious about as specifically as possible."
+
+async def stream_processor(response):
+    async for chunk in response:
+        if len(chunk.choices) > 0:
+            delta = chunk.choices[0].delta
+            if delta.content:
+                yield delta.content
+
+
+@app.post("/chat")
+async def chat(req: ChatRequest):
+    res = await client.chat.completions.create(
+        model = model,
+        messages = [
+            {"role": "system", "content": get_prompt_parsing_assistant()},
+            {"role": "user", "content": req.message}
+        ],
+        stream = True
+    )
+
+    print(req.message)
+    #res_ = res.choices[0].message.model_dump()["content"]
+
+    return StreamingResponse(stream_processor(res), media_type='text/event-stream')
+
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host = "0.0.0.0", port = 123)
+코드에 주석 달아줘
+
+@app.post("/chat")
+async def chat(req: ChatRequest):
+    res = await client.chat.completions.create(
+        model = model,
+        messages = [
+            {"role": "system", "content": get_prompt_parsing_assistant()},
+            {"role": "user", "content": req.message}
+        ],
+        stream = True
+    )
+
+    print(req.message)
+    #res_ = res.choices[0].message.model_dump()["content"]
+
+    return StreamingResponse(stream_processor(res), media_type='text/event-stream')
+
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host = "0.0.0.0", port = 123)
+
+Collecting usage statistics. To deactivate, set browser.gatherUsageStats to false.
+
+
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8501
+  Network URL: http://103.57.61.86:8501
+  External URL: http://103.57.61.86:8501
+
+INFO:     Started server process [3006179]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:123 (Press CTRL+C to quit)
+hi
+INFO:     127.0.0.1:53010 - "POST /chat HTTP/1.1" 200 OK
+what is your job?
+INFO:     127.0.0.1:53576 - "POST /chat HTTP/1.1" 200 OK
