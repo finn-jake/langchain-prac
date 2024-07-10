@@ -20,7 +20,7 @@ def get_prompt_parsing_assistant():
 def init_session_state():
     st.title("🥑 Simple chat with GPT-4o")  # 애플리케이션의 제목을 설정
     st.subheader(":blue[For assistant manager, _Cho_]")  # 정보글을 출력
-    st.write("Let your smile change the world, but don't let the world change your smile. This quote can bring positivity and joy to someone's day.")
+    st.write("The only way to do great work is to love what you do.")
     st.divider()  # 긍정적인 인용구를 출력
 
     # 채팅 히스토리를 초기화

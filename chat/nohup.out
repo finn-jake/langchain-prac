@@ -620,3 +620,566 @@ hi
 INFO:     127.0.0.1:53010 - "POST /chat HTTP/1.1" 200 OK
 what is your job?
 INFO:     127.0.0.1:53576 - "POST /chat HTTP/1.1" 200 OK
+최근 대한민국 출생율 정보 알려줘
+INFO:     127.0.0.1:37038 - "POST /chat HTTP/1.1" 200 OK
+몽고 DB에서 원하는 다큐먼트를 삭제하는 파이썬 코드 알려줘
+INFO:     127.0.0.1:56802 - "POST /chat HTTP/1.1" 200 OK
+알겠어
+INFO:     127.0.0.1:60134 - "POST /chat HTTP/1.1" 200 OK
+Hi paid GPT
+INFO:     127.0.0.1:37104 - "POST /chat HTTP/1.1" 200 OK
+oh are you? I thought you were GPT-4o
+INFO:     127.0.0.1:39588 - "POST /chat HTTP/1.1" 200 OK
+which version?
+INFO:     127.0.0.1:51206 - "POST /chat HTTP/1.1" 200 OK
+I guess OpenAI provides several versions of Chat GPT like GPT3.5, GPT4o or so
+INFO:     127.0.0.1:59960 - "POST /chat HTTP/1.1" 200 OK
+so which version are you
+INFO:     127.0.0.1:43484 - "POST /chat HTTP/1.1" 200 OK
+that's paid one isnt it
+INFO:     127.0.0.1:36994 - "POST /chat HTTP/1.1" 200 OK
+GPT-4.0 는 유료버전 아니니
+INFO:     127.0.0.1:46296 - "POST /chat HTTP/1.1" 200 OK
+but your previously told me that you are a free version of OpenAI's Chat GPT
+INFO:     127.0.0.1:39560 - "POST /chat HTTP/1.1" 200 OK
+유료버전이라묘요
+INFO:     127.0.0.1:42232 - "POST /chat HTTP/1.1" 200 OK
+아니 챗지피티 4.0 유료버전 아닙니까
+INFO:     127.0.0.1:39156 - "POST /chat HTTP/1.1" 200 OK
+너 4.0 아니니
+INFO:     127.0.0.1:44692 - "POST /chat HTTP/1.1" 200 OK
+너는 gpt 버전이 뭐니?
+INFO:     127.0.0.1:44696 - "POST /chat HTTP/1.1" 200 OK
+너는 유료버전이니?
+INFO:     127.0.0.1:44252 - "POST /chat HTTP/1.1" 200 OK
+너는 GPT 버전이 뭐니?
+INFO:     127.0.0.1:47402 - "POST /chat HTTP/1.1" 200 OK
+hi
+INFO:     127.0.0.1:34884 - "POST /chat HTTP/1.1" 200 OK
+아래 코드 설명해줘
+
+from datetime import timedelta
+import pendulum
+local_tz = pendulum.timezone("Asia/Seoul")
+
+from glob import glob
+import warnings
+warnings.filterwarnings('ignore')
+
+from airflow.models import DAG
+from airflow.utils.dates import days_ago
+from airflow.operators.python import PythonOperator, PythonVirtualenvOperator
+from airflow.operators.dummy import DummyOperator
+from airflow.decorators import task
+
+import sys
+sys.path.append("/data/shopai/dags/hatchery-shopai-v2-model")
+
+sys.path.append("/data/shopai/dags/hatchery-shopai-v2-model/hatchery_extract_model")
+sys.path.append("/data/shopai/dags/hatchery-shopai-v2-model/hatchery_extract_model/model")
+sys.path.append("/data/shopai/dags/hatchery-shopai-v2-model/hatchery_extract_model/utils")
+
+import smtplib
+from email.mime.text import MIMEText
+from datetime import date, datetime, timezone, timedelta
+
+#from shop_model.shop_model_test import model_test
+
+from hatchery_extract_model.model import *
+from hatchery_extract_model.utils import *
+from hatchery_extract_model.extract_info_main import *
+
+
+## function 01 ##
+### Price Extract ###
+def coupang_info():
+    # url 정보 가져오기
+    with open('/data/shopai/dags/hatchery-shopai-v2-model/hatchery_extract_model/utils/mongo.yaml') as f:
+        config = yaml.safe_load(f)
+
+    mongo_uri = config["config"]["mongo_uri"]
+
+    coupang_docs = get_data_mallname(mongo_uri, "쿠팡")
+    prices_id, mall_url, pre_price = get_url_info(coupang_docs)
+
+
+    # 정보 추출
+    ## coupang번가 가격 정보 추출
+    price_result, fee_result = price_extract(mall_url, "coupang", 35)
+
+
+    # collection 가져오기
+    products_collection, prices_collection, categories_collection = get_collection(mongo_uri)
+
+    price_range_data_01 = pd.read_excel('/data/shopai/dags/hatchery-shopai-v2-model/hatchery_extract_model/outputs/ba01_new_list.xlsx')
+    price_range_data_02 = pd.read_excel('/data/shopai/dags/hatchery-shopai-v2-model/hatchery_extract_model/outputs/ba02_new_list.xlsx')
+    price_range_data_03 = pd.read_excel('/data/shopai/dags/hatchery-shopai-v2-model/hatchery_extract_model/outputs/ba03_new_list.xlsx')
+    price_range_data_04 = pd.read_excel('/data/shopai/dags/hatchery-shopai-v2-model/hatchery_extract_model/outputs/ba04_new_list.xlsx')
+    price_range_data_05 = pd.read_excel('/data/shopai/dags/hatchery-shopai-v2-model/hatchery_extract_model/outputs/ba05_new_list.xlsx')
+    price_range_data_tmp = pd.read_excel('/data/shopai/dags/hatchery-shopai-v2-model/hatchery_extract_model/outputs/tmp_new_list.xlsx')
+    price_range_data_keyboard = pd.read_excel('/data/shopai/dags/hatchery-shopai-v2-model/hatchery_extract_model/outputs/keyboard_new_list.xlsx')
+
+    price_range_data = pd.concat([price_range_data_01,
+                                  price_range_data_02,
+                                  price_range_data_03,
+                                  price_range_data_04,
+                                  price_range_data_05,
+                                  price_range_data_tmp,
+                                  price_range_data_keyboard], axis = 0).reset_index(drop = True)
+
+    # 쿠팡 price 전처리
+    price = []
+    for i in range(len(price_result)):
+        query = {"_id": prices_id[i]}
+        product_id = prices_collection.find_one(query)['productId']
+
+        query = {"_id" : product_id}
+        thumbnail_url = products_collection.find_one(query)['thumbnail']
+
+        low_price = price_range_data[price_range_data['image_url'] == thumbnail_url].price_low.values[0]
+        high_price = price_range_data[price_range_data['image_url'] == thumbnail_url].price_high.values[0]
+
+        try:
+            if (price_result[i] >= low_price) and (price_result[i] <= high_price):
+                price.append(price_result[i] + fee_result[i])
+            else:   
+                price.append(pre_price[i])
+        except:
+            price.append(pre_price[i])
+
+    # 몽고DB에 가격정보 삽입
+    insert_price_info(prices_collection, price, prices_id)
+
+
+def coupang_batch_alarm():
+    exp_day = str(date.today())
+
+    KST = timezone(timedelta(hours=9))
+    time_record = datetime.now(KST)
+    _day = str(time_record)[:10]
+    _time = str(time_record.time())[:8]
+
+    smtp = smtplib.SMTP('smtp.gmail.com', 587)
+    smtp.ehlo()      # say Hello
+    smtp.starttls()  # TLS 사용시 필요
+    smtp.login('dhkim@hatchery.kr', 'jysnmejkxylqzpcm')
+
+    msg = "쿠팡 배치가 완료 되었습니다."
+
+    msg = MIMEText(msg)
+    msg['Subject'] = f'{_time} 쿠팡 배치 완료!'
+    msg['To'] = 'dhkim@hatchery.kr'
+    smtp.sendmail('dhkim@hatchery.kr', 'dhkim@hatchery.kr', msg.as_string())
+    smtp.sendmail('dhkim@hatchery.kr', 'kwon.dogeun@hatchery.kr', msg.as_string())
+
+    smtp.quit()
+
+
+## connect function ##
+args = {'owner': 'dongha',
+        'start_date': days_ago(n=1),
+        'tzinfo' : local_tz}
+
+with DAG(dag_id = 'coupang_info',
+          default_args = args,
+          schedule_interval = timedelta(minutes=30)) as dag:
+
+    start = DummyOperator(task_id = 'dummy_start', dag = dag)
+    end = DummyOperator(task_id = 'dummy_end', dag = dag)
+
+    t1 = PythonOperator(task_id = 'coupang_info',
+                        provide_context = True,
+                        python_callable = coupang_info,
+                        dag = dag)
+
+    t2 = PythonOperator(task_id = 'coupang_batch_alarm',
+                        provide_context = True,
+                        python_callable = coupang_batch_alarm,
+                        dag = dag)
+
+    start >> t1 >> t2 >> end
+INFO:     127.0.0.1:57170 - "POST /chat HTTP/1.1" 200 OK
+how frequent should a regular person go out for running to optimize one's brain efficiency 
+INFO:     127.0.0.1:42530 - "POST /chat HTTP/1.1" 200 OK
+how does 3km at paced 6 sound like
+INFO:     127.0.0.1:44916 - "POST /chat HTTP/1.1" 200 OK
+6 wasn
+INFO:     127.0.0.1:43368 - "POST /chat HTTP/1.1" 200 OK
+Task was destroyed but it is pending!
+task: <Task pending name='Task-24924' coro=<<async_generator_athrow without __name__>()>>
+3km for about 25 min
+INFO:     127.0.0.1:56538 - "POST /chat HTTP/1.1" 200 OK
+how frequent should a regular person go out for running to optimize one's brain efficiency
+INFO:     127.0.0.1:52470 - "POST /chat HTTP/1.1" 200 OK
+i wasn't walking.. it was a running pace
+INFO:     127.0.0.1:45780 - "POST /chat HTTP/1.1" 200 OK
+how does 3km at paced 6 sound like
+INFO:     127.0.0.1:55588 - "POST /chat HTTP/1.1" 200 OK
+몽고 DB에서 리스트 값을 갖는 logs의 createdAt가 6월 18일 이전의 것들인 항목을 삭제하는 파이썬 코드
+INFO:     127.0.0.1:52290 - "POST /chat HTTP/1.1" 200 OK
+how about 3km for 17 min
+INFO:     127.0.0.1:41742 - "POST /chat HTTP/1.1" 200 OK
+how long should i take a break after having supper for running as above
+INFO:     127.0.0.1:34408 - "POST /chat HTTP/1.1" 200 OK
+how about right after running? how long should I take a break to have a supper after running as bove
+INFO:     127.0.0.1:55610 - "POST /chat HTTP/1.1" 200 OK
+빠르게
+INFO:     127.0.0.1:60584 - "POST /chat HTTP/1.1" 200 OK
+한국에서 외감대상인 비상장 중소기업이 비외감 대상인 자회사 또는 해외 법인이 있을 때, 연결재무제표 공시를 하지 않아도 된다고 알고있는데, 그럼 이 기업이 자발적으로 공시를 하지 않는 이상 어느 국가에서 얼마나 매출을 발생시키고 있는지 알 수 있는 방법이 없어?
+(관계자 인터뷰 같은 방법처럼 해당 기업을 통하여 알아내는 방법 당연히 제외)
+INFO:     127.0.0.1:52890 - "POST /chat HTTP/1.1" 200 OK
+해외에서 설립한 해외법인이 직접 생산하여 판매한다면 수출자료에 안나올 것 같아. 이러한 경우에는 어떤 방법이 있지? 위에 나열한 방법 말고
+INFO:     127.0.0.1:46592 - "POST /chat HTTP/1.1" 200 OK
+만약 해외에서도 공시대상이 아니라 별도 보고를 하지 않는다면?
+INFO:     127.0.0.1:39392 - "POST /chat HTTP/1.1" 200 OK
+중국에서는 중소기업 또는 소규모 법인회사의 공시 기준이 어떻게 돼?
+INFO:     127.0.0.1:35376 - "POST /chat HTTP/1.1" 200 OK
+Task was destroyed but it is pending!
+task: <Task pending name='Task-44473' coro=<<async_generator_athrow without __name__>()>>
+그러니까 중국 공시 대상 기준이 어떻게 되니
+INFO:     127.0.0.1:41724 - "POST /chat HTTP/1.1" 200 OK
+재무적 요건을 상세히 알려줘야지..
+INFO:     127.0.0.1:33556 - "POST /chat HTTP/1.1" 200 OK
+Task was destroyed but it is pending!
+task: <Task pending name='Task-47310' coro=<<async_generator_athrow without __name__>()>>
+그러니까 그 요건을 정확히 알려줘. 중국 공시 요건. 예를 들어 매출은 얼마 이상이 되어야하고 그런것들
+INFO:     127.0.0.1:56954 - "POST /chat HTTP/1.1" 200 OK
+Task was destroyed but it is pending!
+task: <Task pending name='Task-48983' coro=<<async_generator_athrow without __name__>()>>
+해당 금액 단위를  대한민국 원으로 환산해서 알려줘
+INFO:     127.0.0.1:43208 - "POST /chat HTTP/1.1" 200 OK
+Task was destroyed but it is pending!
+task: <Task pending name='Task-51033' coro=<<async_generator_athrow without __name__>()>>
+중국 공시 요건에 대한 재무 지표를 한국 원화로 알려줘!
+INFO:     127.0.0.1:37152 - "POST /chat HTTP/1.1" 200 OK
+상장이 아니라 공시 요건!
+INFO:     127.0.0.1:34438 - "POST /chat HTTP/1.1" 200 OK
+.... 그 뜻이 아닐텐데
+INFO:     127.0.0.1:53304 - "POST /chat HTTP/1.1" 200 OK
+Task was destroyed but it is pending!
+task: <Task pending name='Task-55146' coro=<<async_generator_athrow without __name__>()>>
+hi
+what is your job?
+최근 대한민국 출생율 정보 알려줘
+몽고 DB에서 원하는 다큐먼트를 삭제하는 파이썬 코드 알려줘
+알겠어
+Hi paid GPT
+oh are you? I thought you were GPT-4o
+which version?
+I guess OpenAI provides several versions of Chat GPT like GPT3.5, GPT4o or so
+so which version are you
+that's paid one isnt it
+GPT-4.0 는 유료버전 아니니
+but your previously told me that you are a free version of OpenAI's Chat GPT
+유료버전이라묘요
+아니 챗지피티 4.0 유료버전 아닙니까
+너 4.0 아니니
+너는 gpt 버전이 뭐니?
+너는 유료버전이니?
+너는 GPT 버전이 뭐니?
+hi
+아래 코드 설명해줘
+
+from datetime import timedelta
+import pendulum
+local_tz = pendulum.timezone("Asia/Seoul")
+
+from glob import glob
+import warnings
+warnings.filterwarnings('ignore')
+
+from airflow.models import DAG
+from airflow.utils.dates import days_ago
+from airflow.operators.python import PythonOperator, PythonVirtualenvOperator
+from airflow.operators.dummy import DummyOperator
+from airflow.decorators import task
+
+import sys
+sys.path.append("/data/shopai/dags/hatchery-shopai-v2-model")
+
+sys.path.append("/data/shopai/dags/hatchery-shopai-v2-model/hatchery_extract_model")
+sys.path.append("/data/shopai/dags/hatchery-shopai-v2-model/hatchery_extract_model/model")
+sys.path.append("/data/shopai/dags/hatchery-shopai-v2-model/hatchery_extract_model/utils")
+
+import smtplib
+from email.mime.text import MIMEText
+from datetime import date, datetime, timezone, timedelta
+
+#from shop_model.shop_model_test import model_test
+
+from hatchery_extract_model.model import *
+from hatchery_extract_model.utils import *
+from hatchery_extract_model.extract_info_main import *
+
+
+## function 01 ##
+### Price Extract ###
+def coupang_info():
+    # url 정보 가져오기
+    with open('/data/shopai/dags/hatchery-shopai-v2-model/hatchery_extract_model/utils/mongo.yaml') as f:
+        config = yaml.safe_load(f)
+
+    mongo_uri = config["config"]["mongo_uri"]
+
+    coupang_docs = get_data_mallname(mongo_uri, "쿠팡")
+    prices_id, mall_url, pre_price = get_url_info(coupang_docs)
+
+
+    # 정보 추출
+    ## coupang번가 가격 정보 추출
+    price_result, fee_result = price_extract(mall_url, "coupang", 35)
+
+
+    # collection 가져오기
+    products_collection, prices_collection, categories_collection = get_collection(mongo_uri)
+
+    price_range_data_01 = pd.read_excel('/data/shopai/dags/hatchery-shopai-v2-model/hatchery_extract_model/outputs/ba01_new_list.xlsx')
+    price_range_data_02 = pd.read_excel('/data/shopai/dags/hatchery-shopai-v2-model/hatchery_extract_model/outputs/ba02_new_list.xlsx')
+    price_range_data_03 = pd.read_excel('/data/shopai/dags/hatchery-shopai-v2-model/hatchery_extract_model/outputs/ba03_new_list.xlsx')
+    price_range_data_04 = pd.read_excel('/data/shopai/dags/hatchery-shopai-v2-model/hatchery_extract_model/outputs/ba04_new_list.xlsx')
+    price_range_data_05 = pd.read_excel('/data/shopai/dags/hatchery-shopai-v2-model/hatchery_extract_model/outputs/ba05_new_list.xlsx')
+    price_range_data_tmp = pd.read_excel('/data/shopai/dags/hatchery-shopai-v2-model/hatchery_extract_model/outputs/tmp_new_list.xlsx')
+    price_range_data_keyboard = pd.read_excel('/data/shopai/dags/hatchery-shopai-v2-model/hatchery_extract_model/outputs/keyboard_new_list.xlsx')
+
+    price_range_data = pd.concat([price_range_data_01,
+                                  price_range_data_02,
+                                  price_range_data_03,
+                                  price_range_data_04,
+                                  price_range_data_05,
+                                  price_range_data_tmp,
+                                  price_range_data_keyboard], axis = 0).reset_index(drop = True)
+
+    # 쿠팡 price 전처리
+    price = []
+    for i in range(len(price_result)):
+        query = {"_id": prices_id[i]}
+        product_id = prices_collection.find_one(query)['productId']
+
+        query = {"_id" : product_id}
+        thumbnail_url = products_collection.find_one(query)['thumbnail']
+
+        low_price = price_range_data[price_range_data['image_url'] == thumbnail_url].price_low.values[0]
+        high_price = price_range_data[price_range_data['image_url'] == thumbnail_url].price_high.values[0]
+
+        try:
+            if (price_result[i] >= low_price) and (price_result[i] <= high_price):
+                price.append(price_result[i] + fee_result[i])
+            else:   
+                price.append(pre_price[i])
+        except:
+            price.append(pre_price[i])
+
+    # 몽고DB에 가격정보 삽입
+    insert_price_info(prices_collection, price, prices_id)
+
+
+def coupang_batch_alarm():
+    exp_day = str(date.today())
+
+    KST = timezone(timedelta(hours=9))
+    time_record = datetime.now(KST)
+    _day = str(time_record)[:10]
+    _time = str(time_record.time())[:8]
+
+    smtp = smtplib.SMTP('smtp.gmail.com', 587)
+    smtp.ehlo()      # say Hello
+    smtp.starttls()  # TLS 사용시 필요
+    smtp.login('dhkim@hatchery.kr', 'jysnmejkxylqzpcm')
+
+    msg = "쿠팡 배치가 완료 되었습니다."
+
+    msg = MIMEText(msg)
+    msg['Subject'] = f'{_time} 쿠팡 배치 완료!'
+    msg['To'] = 'dhkim@hatchery.kr'
+    smtp.sendmail('dhkim@hatchery.kr', 'dhkim@hatchery.kr', msg.as_string())
+    smtp.sendmail('dhkim@hatchery.kr', 'kwon.dogeun@hatchery.kr', msg.as_string())
+
+    smtp.quit()
+
+
+## connect function ##
+args = {'owner': 'dongha',
+        'start_date': days_ago(n=1),
+        'tzinfo' : local_tz}
+
+with DAG(dag_id = 'coupang_info',
+          default_args = args,
+          schedule_interval = timedelta(minutes=30)) as dag:
+
+    start = DummyOperator(task_id = 'dummy_start', dag = dag)
+    end = DummyOperator(task_id = 'dummy_end', dag = dag)
+
+    t1 = PythonOperator(task_id = 'coupang_info',
+                        provide_context = True,
+                        python_callable = coupang_info,
+                        dag = dag)
+
+    t2 = PythonOperator(task_id = 'coupang_batch_alarm',
+                        provide_context = True,
+                        python_callable = coupang_batch_alarm,
+                        dag = dag)
+
+    start >> t1 >> t2 >> end
+how frequent should a regular person go out for running to optimize one's brain efficiency 
+how does 3km at paced 6 sound like
+6 wasn
+3km for about 25 min
+how frequent should a regular person go out for running to optimize one's brain efficiency
+i wasn't walking.. it was a running pace
+how does 3km at paced 6 sound like
+몽고 DB에서 리스트 값을 갖는 logs의 createdAt가 6월 18일 이전의 것들인 항목을 삭제하는 파이썬 코드
+how about 3km for 17 min
+how long should i take a break after having supper for running as above
+how about right after running? how long should I take a break to have a supper after running as bove
+빠르게
+한국에서 외감대상인 비상장 중소기업이 비외감 대상인 자회사 또는 해외 법인이 있을 때, 연결재무제표 공시를 하지 않아도 된다고 알고있는데, 그럼 이 기업이 자발적으로 공시를 하지 않는 이상 어느 국가에서 얼마나 매출을 발생시키고 있는지 알 수 있는 방법이 없어?
+(관계자 인터뷰 같은 방법처럼 해당 기업을 통하여 알아내는 방법 당연히 제외)
+해외에서 설립한 해외법인이 직접 생산하여 판매한다면 수출자료에 안나올 것 같아. 이러한 경우에는 어떤 방법이 있지? 위에 나열한 방법 말고
+만약 해외에서도 공시대상이 아니라 별도 보고를 하지 않는다면?
+중국에서는 중소기업 또는 소규모 법인회사의 공시 기준이 어떻게 돼?
+그러니까 중국 공시 대상 기준이 어떻게 되니
+재무적 요건을 상세히 알려줘야지..
+그러니까 그 요건을 정확히 알려줘. 중국 공시 요건. 예를 들어 매출은 얼마 이상이 되어야하고 그런것들
+해당 금액 단위를  대한민국 원으로 환산해서 알려줘
+중국 공시 요건에 대한 재무 지표를 한국 원화로 알려줘!
+상장이 아니라 공시 요건!
+.... 그 뜻이 아닐텐데
+상세히 설명을해도 네가 동문서답을하면 어떻게 해야하니
+INFO:     127.0.0.1:59864 - "POST /chat HTTP/1.1" 200 OK
+중국에서 비상장 회사가 공시해야하는 조건이 있어? 있다면 재무지표 등, 상세한 요건을 한국 원화로 알려줘
+INFO:     127.0.0.1:48426 - "POST /chat HTTP/1.1" 200 OK
+중국 공시자료를 볼 수 있는 웹사이트 링크를 줘
+INFO:     127.0.0.1:47194 - "POST /chat HTTP/1.1" 200 OK
+한국의 경우는?
+INFO:     127.0.0.1:43012 - "POST /chat HTTP/1.1" 200 OK
+한국 공시자료는 어디서 확인 가능하지?
+INFO:     127.0.0.1:60870 - "POST /chat HTTP/1.1" 200 OK
+중국에 한국의 전자공시시스템과 같은 웹사이트가 있어? 있다면 링크좀
+INFO:     127.0.0.1:57108 - "POST /chat HTTP/1.1" 200 OK
+서로 겹치는 정보가 있니? 
+INFO:     127.0.0.1:50376 - "POST /chat HTTP/1.1" 200 OK
+11번가 api 횟수 제한
+INFO:     127.0.0.1:43700 - "POST /chat HTTP/1.1" 200 OK
+금영엔터테인먼트의 중국 법인이 중국에서 고시하고 있니
+INFO:     127.0.0.1:38398 - "POST /chat HTTP/1.1" 200 OK
+강아지 키우고 싶어 근데 내가 나를 키우기도 힘들다
+INFO:     127.0.0.1:45004 - "POST /chat HTTP/1.1" 200 OK
+일반적으로 강아지를 키우는데에 한달에 얼마정도의 비용과 시간이 들어? 구체적인 숫자를 줘
+INFO:     127.0.0.1:52140 - "POST /chat HTTP/1.1" 200 OK
+강아지 유치원은 얼마나
+INFO:     127.0.0.1:56062 - "POST /chat HTTP/1.1" 200 OK
+금영의 중국 제조회사 법인에 대해서 네가 알고 있는 모든걸 알려줘
+INFO:     127.0.0.1:53766 - "POST /chat HTTP/1.1" 200 OK
+정확한걸 찾아서 알려줘야지 내가 방법을 몰라서 물어보는건 아니지 않을까?
+INFO:     127.0.0.1:36690 - "POST /chat HTTP/1.1" 200 OK
+금영 중국이름알려줘 중국어로. 공시시스템에 검색해볼거야
+INFO:     127.0.0.1:41810 - "POST /chat HTTP/1.1" 200 OK
+안나오네... 찾아줘
+INFO:     127.0.0.1:40550 - "POST /chat HTTP/1.1" 200 OK
+단어단어 기준으로 답변을 주는구나
+INFO:     127.0.0.1:59254 - "POST /chat HTTP/1.1" 200 OK
+아니 나의 질문에 대해서...
+INFO:     127.0.0.1:42250 - "POST /chat HTTP/1.1" 200 OK
+외감 비외감을 영어로 뭐라고해?
+INFO:     127.0.0.1:46332 - "POST /chat HTTP/1.1" 200 OK
+ does US have a standard or criteria to meet for a company being required to be Audited externally?
+INFO:     127.0.0.1:57532 - "POST /chat HTTP/1.1" 200 OK
+for a private company, please give me a specific criteria such as minimum revenue in KWN
+INFO:     127.0.0.1:55010 - "POST /chat HTTP/1.1" 200 OK
+for a private company that are required to be audited externally., please give me a specific criteria such as minimum revenue in KWN
+INFO:     127.0.0.1:43166 - "POST /chat HTTP/1.1" 200 OK
+so 미국에서 공시대상의 기준이 한화 매출 500억이라는거지? 총자산은 120억,  총 임직원 수는 300명
+INFO:     127.0.0.1:38044 - "POST /chat HTTP/1.1" 200 OK
+Karaoke Smart와 Kanto의 관계를 알려줘. 네가 알고 있는 모든 선에서.
+INFO:     127.0.0.1:40092 - "POST /chat HTTP/1.1" 200 OK
+둘 다 회사야ㅐ 회사
+INFO:     127.0.0.1:43778 - "POST /chat HTTP/1.1" 200 OK
+Task was destroyed but it is pending!
+task: <Task pending name='Task-83718' coro=<<async_generator_athrow without __name__>()>>
+Karaoke Smart라는 회사와 Kanto라는 회사의 관계를 찾아서 설명해줘
+INFO:     127.0.0.1:59382 - "POST /chat HTTP/1.1" 200 OK
+충격적이네....
+INFO:     127.0.0.1:56498 - "POST /chat HTTP/1.1" 200 OK
+Task was destroyed but it is pending!
+task: <Task pending name='Task-84784' coro=<<async_generator_athrow without __name__>()>>
+Karaoke Smart라는 회사와 Kanto라는 회사의 관계를 찾아서 설명해줘
+INFO:     127.0.0.1:42820 - "POST /chat HTTP/1.1" 200 OK
+몽고 DB에서 prices collection안에 각 document에 logs라는 컬럼이 있고 그 안에 가격들이 리스트 형식으로 들어있어 각 값에는 createdAt라는 생성 시간 정보가 있는데 리스트 값 중 createdAt가 6월 18일 이전인 값을 삭제하는 파이썬 코드
+INFO:     127.0.0.1:43622 - "POST /chat HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+sell out 과 sell in 차이가 뭐더라
+INFO:     127.0.0.1:42454 - "POST /chat HTTP/1.1" 200 OK
+air비용이 뭐야
+INFO:     127.0.0.1:43560 - "POST /chat HTTP/1.1" 200 OK
+오늘의 명언 하나 추천해줘 영어로
+INFO:     127.0.0.1:51720 - "POST /chat HTTP/1.1" 200 OK
+sell out 과 sell in 차이가 뭐더라
+INFO:     127.0.0.1:39920 - "POST /chat HTTP/1.1" 200 OK
+air 비용이 뭐야
+INFO:     127.0.0.1:54556 - "POST /chat HTTP/1.1" 200 OK
+2024-07-10 10:45:41.854 Uncaught app exception
+Traceback (most recent call last):
+  File "/home/dongha/openai/lib/python3.10/site-packages/httpx/_transports/default.py", line 69, in map_httpcore_exceptions
+    yield
+  File "/home/dongha/openai/lib/python3.10/site-packages/httpx/_transports/default.py", line 373, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+  File "/home/dongha/openai/lib/python3.10/site-packages/httpcore/_async/connection_pool.py", line 216, in handle_async_request
+    raise exc from None
+  File "/home/dongha/openai/lib/python3.10/site-packages/httpcore/_async/connection_pool.py", line 196, in handle_async_request
+    response = await connection.handle_async_request(
+  File "/home/dongha/openai/lib/python3.10/site-packages/httpcore/_async/connection.py", line 99, in handle_async_request
+    raise exc
+  File "/home/dongha/openai/lib/python3.10/site-packages/httpcore/_async/connection.py", line 76, in handle_async_request
+    stream = await self._connect(request)
+  File "/home/dongha/openai/lib/python3.10/site-packages/httpcore/_async/connection.py", line 122, in _connect
+    stream = await self._network_backend.connect_tcp(**kwargs)
+  File "/home/dongha/openai/lib/python3.10/site-packages/httpcore/_backends/auto.py", line 30, in connect_tcp
+    return await self._backend.connect_tcp(
+  File "/home/dongha/openai/lib/python3.10/site-packages/httpcore/_backends/anyio.py", line 114, in connect_tcp
+    with map_exceptions(exc_map):
+  File "/usr/lib/python3.10/contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/home/dongha/openai/lib/python3.10/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: All connection attempts failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/dongha/openai/lib/python3.10/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 589, in _run_script
+    exec(code, module.__dict__)
+  File "/home/dongha/langchain-prac/chat/_ui/app.py", line 61, in <module>
+    chat_main()  # 챗봇 애플리케이션 시작
+  File "/home/dongha/langchain-prac/chat/_ui/app.py", line 58, in chat_main
+    loop.run_until_complete(handle_chat(message))  # handle_chat 함수를 실행하여 사용자의 메시지를 처리
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 649, in run_until_complete
+    return future.result()
+  File "/home/dongha/langchain-prac/chat/_ui/app.py", line 44, in handle_chat
+    async for chunk in request_chat_api(message):  # 챗봇 API로부터 응답을 청크 단위로 받음
+  File "/home/dongha/langchain-prac/chat/_ui/app.py", line 10, in request_chat_api
+    async with client.stream("POST", API_BASE_URL, json={"message": message}, timeout=None) as response:
+  File "/usr/lib/python3.10/contextlib.py", line 199, in __aenter__
+    return await anext(self.gen)
+  File "/home/dongha/openai/lib/python3.10/site-packages/httpx/_client.py", line 1617, in stream
+    response = await self.send(
+  File "/home/dongha/openai/lib/python3.10/site-packages/httpx/_client.py", line 1661, in send
+    response = await self._send_handling_auth(
+  File "/home/dongha/openai/lib/python3.10/site-packages/httpx/_client.py", line 1689, in _send_handling_auth
+    response = await self._send_handling_redirects(
+  File "/home/dongha/openai/lib/python3.10/site-packages/httpx/_client.py", line 1726, in _send_handling_redirects
+    response = await self._send_single_request(request)
+  File "/home/dongha/openai/lib/python3.10/site-packages/httpx/_client.py", line 1763, in _send_single_request
+    response = await transport.handle_async_request(request)
+  File "/home/dongha/openai/lib/python3.10/site-packages/httpx/_transports/default.py", line 372, in handle_async_request
+    with map_httpcore_exceptions():
+  File "/usr/lib/python3.10/contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/home/dongha/openai/lib/python3.10/site-packages/httpx/_transports/default.py", line 86, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: All connection attempts failed
+INFO:     Started server process [304673]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:123 (Press CTRL+C to quit)
+hi
+INFO:     127.0.0.1:39960 - "POST /chat HTTP/1.1" 200 OK

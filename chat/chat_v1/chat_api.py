@@ -1,5 +1,6 @@
 # 필요한 패키지를 임포트합니다.
 import os
+import yaml
 
 # OpenAI의 Azure API를 임포트합니다.
 from openai import AzureOpenAI, AsyncAzureOpenAI
@@ -12,11 +13,16 @@ from fastapi.middleware.cors import CORSMiddleware
 # 데이터 검증을 위한 Pydantic 모델을 임포트합니다.
 from pydantic import BaseModel
 
+
 # API 버전, 엔드포인트 및 API 키를 설정합니다.
-api_version = "2024-02-01"
-azure_endpoint = "https://hatcheryopenaicanadaeast.openai.azure.com/"
-api_key = "14a3d1c6a6094c6a8950c1f1ddad33a6"  # 실제 프로덕션에서는 API 키를 안전하게 보관해야 합니다.
-model = "hatcheryOpenaiCanadaGPT4o"  # OpenAI 모델 이름을 설정합니다.
+with open('/home/dongha/langchain-prac/chat/key.yaml') as f:
+    config = yaml.safe_load(f)
+
+api_version = config["config"]["api_version"]
+azure_endpoint = config["config"]["azure_endpoint"]
+api_key = config["config"]["api_key"]
+model = config["config"]["model"]
+
 
 # 비동기 OpenAI 클라이언트를 생성합니다.
 client = AsyncAzureOpenAI(

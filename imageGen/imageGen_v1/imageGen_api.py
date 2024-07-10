@@ -6,12 +6,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 
-client = AzureOpenAI(
-    api_version="2024-02-01",
-    azure_endpoint="https://hatcheryopenaieastus.openai.azure.com/",
-    api_key="97a434b6dfa44788b4d702dd4d38904b",
-)
-
 app = FastAPI(debug = True)
 app.add_middleware(
     CORSMiddleware,
