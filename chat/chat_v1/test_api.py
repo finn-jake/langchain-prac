@@ -1,13 +1,17 @@
 import os
+import yaml
 from openai import AzureOpenAI
 import json
 
 import requests
 
-api_version = "2024-02-01"
-azure_endpoint = "https://hatcheryopenaicanadaeast.openai.azure.com/"
-api_key = "14a3d1c6a6094c6a8950c1f1ddad33a6"
-model = "hatcheryOpenaiCanadaGPT4"
+with open('/home/dongha/langchain-prac/chat/key.yaml') as f:
+    config = yaml.safe_load(f)
+
+api_version = config["config"]["api_version"]
+azure_endpoint = config["config"]["azure_endpoint"]
+api_key = config["config"]["api_key"]
+model = config["config"]["model"]
 
 client = AzureOpenAI(
     api_version=api_version,
