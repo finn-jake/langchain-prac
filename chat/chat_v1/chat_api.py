@@ -12,6 +12,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 # 데이터 검증을 위한 Pydantic 모델을 임포트합니다.
 from pydantic import BaseModel
+from typing import List,Dict
 
 
 # API 버전, 엔드포인트 및 API 키를 설정합니다.
@@ -21,7 +22,7 @@ with open('/home/dongha/langchain-prac/chat/key.yaml') as f:
 api_version = config["config"]["api_version"]
 azure_endpoint = config["config"]["azure_endpoint"]
 api_key = config["config"]["api_key"]
-model = config["config"]["model"]
+default_model = config["config"]["model"]
 
 
 # 비동기 OpenAI 클라이언트를 생성합니다.
@@ -45,7 +46,9 @@ app.add_middleware(
 
 # JSON 요청의 데이터 구조를 정의하는 Pydantic 모델
 class ChatRequest(BaseModel):
-    message: str
+    #message: str
+    messages : List[Dict[str, str]]
+    model: str = default_model
 
 # 시스템 메시지를 반환하는 함수
 def get_prompt_parsing_assistant():
@@ -63,16 +66,21 @@ async def stream_processor(response):
 @app.post("/chat")
 async def chat(req: ChatRequest):
     # OpenAI API에 채팅 요청을 보냅니다.
+    if req.model == "gpt-4":
+        model = "hatcheryOpenaiCanadaGPT4"
+
+    elif req.model == "gpt-4o":
+        model = "hatcheryOpenaiCanadaGPT4o"
+    
     res = await client.chat.completions.create(
         model=model,
-        messages=[
-            {"role": "system", "content": get_prompt_parsing_assistant()},  # 시스템 메시지
-            {"role": "user", "content": req.message}  # 사용자 메시지
-        ],
+        messages=req.messages,
+            #{"role": "system", "content": get_prompt_parsing_assistant()},  # 시스템 메시지
+            #{"role": "user", "content": req.message}  # 사용자 메시지
         stream=True  # 스트림 모드 사용
     )
 
-    print(req.message)  # 사용자 메시지를 콘솔에 출력합니다.
+    print(req.messages)  # 사용자 메시지를 콘솔에 출력합니다.
     #res_ = res.choices[0].message.model_dump()["content"]
 
     # 스트리밍 응답을 반환합니다.
