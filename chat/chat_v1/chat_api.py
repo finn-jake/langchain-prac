@@ -1,21 +1,21 @@
-# 필요한 패키지를 임포트합니다.
+# 필요한 패키지를 임포트
 import os
 import yaml
 
-# OpenAI의 Azure API를 임포트합니다.
+# OpenAI의 Azure API를 임포트
 from openai import AzureOpenAI, AsyncAzureOpenAI
 
-# FastAPI 관련 모듈을 임포트합니다.
+# FastAPI 관련 모듈을 임포트
 from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 
-# 데이터 검증을 위한 Pydantic 모델을 임포트합니다.
+# 데이터 검증을 위한 Pydantic 모델을 임포트
 from pydantic import BaseModel
 from typing import List,Dict
 
 
-# API 버전, 엔드포인트 및 API 키를 설정합니다.
+# API 버전, 엔드포인트 및 API 키를 설정
 with open('/home/dongha/langchain-prac/chat/key.yaml') as f:
     config = yaml.safe_load(f)
 
@@ -25,17 +25,17 @@ api_key = config["config"]["api_key"]
 default_model = config["config"]["model"]
 
 
-# 비동기 OpenAI 클라이언트를 생성합니다.
+# 비동기 OpenAI 클라이언트를 생성
 client = AsyncAzureOpenAI(
     api_version=api_version,
     azure_endpoint=azure_endpoint,
     api_key=api_key
 )
 
-# FastAPI 애플리케이션을 생성하고 디버그 모드를 활성화합니다.
+# FastAPI 애플리케이션을 생성하고 디버그 모드를 활성화
 app = FastAPI(debug=True)
 
-# CORS 미들웨어를 추가하여 모든 도메인에서의 요청을 허용합니다.
+# CORS 미들웨어를 추가하여 모든 도메인에서의 요청을 허용
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # 모든 도메인 허용

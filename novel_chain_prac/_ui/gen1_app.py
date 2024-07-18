@@ -48,7 +48,7 @@ def init_session_state():
 
 def input_step1_ui():
     # Step 1: Select genre
-    st.subheader("Step 1: Select Genre")
+    st.subheader(":orange[Step 1: Select Genre]")
     genres = [
         "Thriller",
         "Fantasy",
@@ -61,7 +61,7 @@ def input_step1_ui():
 
 def input_step2_ui():
     # Step 2: Add Characters
-    st.subheader("Step 2: Add Characters")
+    st.subheader(":orange[Step 2: Add Characters]")
 
     character_name = st.text_input("Name")
     character_characteristics = st.text_input("Characteristics")
@@ -77,7 +77,7 @@ def input_step2_ui():
 
 def input_step3_ui():
     # Step 3: Add News Article
-    st.subheader("Step 3: Add News Article")
+    st.subheader(":orange[Step 3: Add News Article]")
     news_text = st.text_area(
         "Paste the news article here", value=st.session_state.news_text
     )
@@ -114,7 +114,7 @@ def result_ui():
 
 
 def main():
-    st.title("[Part 06] Writer GPT")
+    st.title("Writer GPT")
 
     init_session_state()
 
