@@ -31,9 +31,11 @@ writer_llm = AzureChatOpenAI(
     azure_endpoint = azure_endpoint,
     api_key = api_key
 )
+
 writer_prompt_template = ChatPromptTemplate.from_template(
     template=read_prompt_template("/Users/kdh/Desktop/project/langchain-prac/novel_chain_prac/langchain/prompt_template_v1.txt")
 )
+
 writer_chain = LLMChain(
     llm=writer_llm, prompt = writer_prompt_template, output_key = "output"
 )
@@ -47,11 +49,8 @@ messages = [
 ]
 
 result = writer_chain(messages)
-
-
 ai_msg = llm.invoke(messages)
 print(ai_msg.content)
-
 
 #############################
 model = AzureChatOpenAI(

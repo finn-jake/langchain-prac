@@ -75,6 +75,7 @@ def generate_novel(req:UserRequest) -> Dict[str, str]:
          "news_text": itemgetter("news_text")}
         | novel_outline_template | writer_llm | StrOutputParser()
     )
+
     novel_plot_chain = (
         {"novel_idea" : novel_idea_chain, "novel_outline" : novel_outline_chain,
          "genre": itemgetter("genre"),

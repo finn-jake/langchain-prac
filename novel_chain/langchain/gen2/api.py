@@ -9,8 +9,6 @@ from langchain.prompts.chat import ChatPromptTemplate
 from pydantic import BaseModel
 
 load_dotenv()
-
-
 app = FastAPI()
 
 CUR_DIR = os.path.dirname(os.path.abspath(__file__))

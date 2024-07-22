@@ -57,10 +57,10 @@ def get_prompt_parsing_assistant():
 # 비동기 스트림 처리 함수
 async def stream_processor(response):
     async for chunk in response:
-        if len(chunk.choices) > 0:               # 응답에서 선택된 결과가 있는지 확인
-            delta = chunk.choices[0].delta       # 첫 번째 선택의 델타를 얻음
+        if len(chunk.choices) > 0:             # 응답에서 선택된 결과가 있는지 확인
+            delta = chunk.choices[0].delta     # 첫 번째 선택의 델타를 얻음
             if delta.content:
-                yield delta.content              # 델타의 콘텐츠를 스트리밍으로 반환
+                yield delta.content            # 델타의 콘텐츠를 스트리밍으로 반환
 
 # 채팅 엔드포인트를 정의하는 FastAPI POST 경로
 @app.post("/chat")

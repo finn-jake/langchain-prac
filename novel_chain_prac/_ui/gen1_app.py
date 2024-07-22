@@ -17,7 +17,6 @@ DEFAULT_NEWS_TEXT = """기름값 하락 계속…휘발유 6.6원·경유 5.9원
 휘발유 가격은 8주째, 경유 가격은 9주 연속 내림세입니다.
 대한석유협회 관계자는 "다음 주에도 휘발유·경유 가격은 하향 안정세를 보이겠지만, 그 다음 주부터는 특히 경유 가격이 반등할 가능성이 있다"고 전망했습니다."""
 
-
 def request_writer_api(
     genre: str,
     characters: List[Dict[str, str]],
@@ -117,7 +116,6 @@ def main():
     st.title("Writer GPT")
 
     init_session_state()
-
     col1, col2, col3 = st.columns([1, 1, 1])
 
     with col1:
@@ -132,7 +130,6 @@ def main():
 
     st.markdown("---")
     result_ui()
-
 
 if __name__ == "__main__":
     st.set_page_config(layout="wide")

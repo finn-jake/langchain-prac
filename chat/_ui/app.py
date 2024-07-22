@@ -33,7 +33,7 @@ def init_session_state():
     #st.set_page_config(layout = "wide") # 기본 세팅을 와이드 뷰 버전으로 세팅
     st.title("🥑 Chat with GPT")  # 애플리케이션의 제목을 설정
     st.subheader(":blue[For assistant manager, _Smart Cho_]")  # 정보글을 출력
-    st.write(":red[I'm so sleepy, I could die]")
+    st.write(":red[Web search function is difficult]")
     st.divider()
 
     # 모델 선택을 위한 selectbox 추가
