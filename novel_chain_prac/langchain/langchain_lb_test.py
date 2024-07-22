@@ -1,10 +1,11 @@
+from operator import itemgetter
+
 from langchain.chains import LLMChain
-from langchain.chains import llm
+
 from langchain.prompts.chat import ChatPromptTemplate
-# from langchain.chat_models import AzureChatOpenAI
+from langchain_core.output_parsers import StrOutputParser
+
 from langchain_openai import AzureChatOpenAI
-from langchain_openai import AzureOpenAI
-# from langchain_openai import AsyncAzureOpenAI
 from langchain.prompts.chat import ChatPromptTemplate
 
 import yaml
@@ -50,3 +51,28 @@ result = writer_chain(messages)
 
 ai_msg = llm.invoke(messages)
 print(ai_msg.content)
+
+
+#############################
+model = AzureChatOpenAI(
+    azure_deployment = model,
+    api_version = api_version,
+    azure_endpoint = azure_endpoint,
+    api_key = api_key
+)
+
+prompt1 = ChatPromptTemplate.from_template("what is the city {person} is from")
+prompt2 = ChatPromptTemplate.from_template(
+    "what country is the city {city} in? respond in {language}"
+)
+
+chain1 = prompt1 | model | StrOutputParser()
+#chain1_answer = chain1.invoke({"person" : "obama"})
+#print(chain1_answer)
+
+chain2 = (
+    {"city" : chain1, "language" : itemgetter("language")}
+    | prompt2 | model | StrOutputParser()
+)
+
+chain2.invoke({"person" : "obama", "language": "korean"})

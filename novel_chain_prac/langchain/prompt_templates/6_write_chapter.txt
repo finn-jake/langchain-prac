@@ -16,4 +16,4 @@
 
 <등장 인물>, <아웃라인>을 가지고 <플롯>의 Chapter <chapter_number>을 소설로 작성해줘
 
-Chapter { chapter_number}:
+Chapter {chapter_number}:
