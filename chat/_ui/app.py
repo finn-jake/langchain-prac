@@ -4,8 +4,13 @@ import httpx  # 비동기 HTTP 요청을 위한 httpx 모듈
 from io import BytesIO
 import os, requests
 
+
+###################
+# API 요청 함수 정의 #
+###################
 API_BASE_URL = "http://localhost:123/chat"  # 챗봇 API의 기본 URL
 API_IMAGE_URL = "http://localhost:124/image" # 이미지 생성 URL
+API_SEARCH_URL = "http://localhost:125/search" # 검색 API의 기본 URL
 
 # 챗봇 API에 요청을 보내기 위한 비동기 함수
 async def request_chat_api(messages, model):
@@ -18,7 +23,7 @@ async def request_chat_api(messages, model):
             async for chunk in response.aiter_text():
                 yield chunk  # 응답 데이터를 청크 단위로 반환
 
-# 이미지 생성 API에 요청을 보내기 위한 비동기 함수
+# 이미지 생성 API에 요청을 보내기 위한 함수
 def request_image_api(
     message: str) -> str:
 
@@ -27,7 +32,17 @@ def request_image_api(
 
     return resp["message"]
 
+# 검색 엔진 API에 요청을 보내기 위한 함수
+def request_search_api(query, search_type, mkt):
+    resp = requests.post(API_SEARCH_URL, json = {"query": query,
+                                                 "search_type": search_type,
+                                                 "mkt": mkt})
+    return resp["content"]
 
+
+###################
+# 채팅 주요 함수 정의 #
+###################
 # 세션 상태를 초기화하는 함수
 def init_session_state():
     #st.set_page_config(layout = "wide") # 기본 세팅을 와이드 뷰 버전으로 세팅
@@ -43,8 +58,7 @@ def init_session_state():
     st.sidebar.selectbox(
         "Select Model",
         ["gpt-4", "gpt-4o"],
-        key = "model"
-    )
+        key = "model")
     
     # 채팅 히스토리를 초기화
     if "messages" not in st.session_state:
@@ -54,11 +68,6 @@ def init_session_state():
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])  # 기존 메시지를 마크다운 형식으로 출력
-
-# 이미지 생성 세션 초기화
-def init_image_session_state():
-    if "generated_image_url" not in st.session_state:
-        st.session_state.generated_image_url = None
 
 # 챗 메시지를 처리하는 비동기 함수
 async def handle_chat(message: str):
@@ -77,11 +86,6 @@ async def handle_chat(message: str):
 
     st.session_state.messages.append({"role": "assistant", "content": full_response})  # 어시스턴트의 응답을 세션 상태에 추가
 
-# 생성 이미지 다운로드 처리 함수
-def download_image(image_url: str) -> BytesIO:
-    response = requests.get(image_url)
-    return BytesIO(response.content)
-
 # 챗봇 애플리케이션의 주요 함수
 def chat_main():
     init_session_state()  # 세션 상태를 초기화
@@ -90,6 +94,20 @@ def chat_main():
         loop = asyncio.new_event_loop()  # 새로운 이벤트 루프를 생성
         asyncio.set_event_loop(loop)  # 생성한 이벤트 루프를 현재 루프로 설정
         loop.run_until_complete(handle_chat(message))  # handle_chat 함수를 실행하여 사용자의 메시지를 처리
+
+
+###################
+# 이미지 생성 주요 함수 정의 #
+###################
+# 이미지 생성 세션 초기화
+def init_image_session_state():
+    if "generated_image_url" not in st.session_state:
+        st.session_state.generated_image_url = None
+
+# 생성 이미지 다운로드 처리 함수
+def download_image(image_url: str) -> BytesIO:
+    response = requests.get(image_url)
+    return BytesIO(response.content)
 
 # 이미지 생성 애플리케이션의 주요 함수
 def imagegen_main():
@@ -113,7 +131,9 @@ def imagegen_main():
             mime="image/png"
         )
 
-
+###################
+# 서비스 메인 함수 정의 #
+###################
 def main():
     st.sidebar.title("Navigation")
     selection = st.sidebar.radio("Go to", ['Chat', "Image Generation"])

@@ -29,8 +29,7 @@ app.add_middleware(
     allow_origins = ["*"],
     allow_credentials = True,
     allow_methods = ["*"],
-    allow_headers = ["*"]
-)
+    allow_headers = ["*"])
 
 class ImageGenRequest(BaseModel):
     message: str
@@ -38,7 +37,6 @@ class ImageGenRequest(BaseModel):
 
 @app.post("/image")
 def imageGen(req: ImageGenRequest):
-    res = client
     result = client.images.generate(
         model = "Dalle3",
         prompt = req.message,

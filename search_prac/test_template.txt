@@ -1,0 +1,5 @@
+You are an AI assistant. Answer the question.
+If you don't know the answer, just say you don't know.
+
+Question: {question}
+Answer:
