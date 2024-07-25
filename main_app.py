@@ -47,8 +47,8 @@ def request_search_api(query, search_type, mkt):
 def init_session_state():
     #st.set_page_config(layout = "wide") # 기본 세팅을 와이드 뷰 버전으로 세팅
     st.title("🥑 Chat with GPT")  # 애플리케이션의 제목을 설정
-    st.subheader(":blue[For assistant manager, _Smart Cho_]")  # 정보글을 출력
-    st.write(":red[Web search function is difficult]")
+    st.subheader(":blue[subheader]")  # 정보글을 출력
+    st.write(":red[description]")
     st.divider()
 
     # 모델 선택을 위한 selectbox 추가
@@ -112,7 +112,7 @@ def download_image(image_url: str) -> BytesIO:
 # 이미지 생성 애플리케이션의 주요 함수
 def imagegen_main():
     init_image_session_state()
-    st.subheader("🪄 Whatever :orange[HE] imagine will come :blue[TRUE] \n")
+    st.subheader("🪄 Image Generation \n")
     prompt = st.text_input("Enter a prompt for image generation:")
 
     if st.button("Generate Image") and prompt:

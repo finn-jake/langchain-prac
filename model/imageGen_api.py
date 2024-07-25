@@ -14,7 +14,7 @@ key_path = "utils/imggen_key.yaml"
 config_path = os.path.join(current_direc, key_path)
 
 # azure api key import
-with open('/home/dongha/langchain-prac/imageGen/key.yaml') as f:
+with open(config_path) as f:
     config = yaml.safe_load(f)
 
 api_version = config["config"]["api_version"]
