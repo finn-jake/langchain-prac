@@ -132,16 +132,41 @@ def imagegen_main():
         )
 
 ###################
+# 검색엔진 주요 함수 정의 #
+###################
+# 검색엔진 세션 초기화
+def init_search_session_state():
+    if "search_keyword" not in st.session_state:
+        st.session_state.search_keyword =None
+
+    if "type_" not in st.session_state:
+        st.session_state.type_ = "News"
+
+    st.sidebar.selectbox(
+        "Select Search Type",
+        ["General", "News", "Image"],
+        key = "type_")
+
+def handle_search(search_keyword:str):
+    tmp = tmp
+
+def search_main():
+    init_search_session_state()
+    st.subheader
+
+###################
 # 서비스 메인 함수 정의 #
 ###################
 def main():
     st.sidebar.title("Navigation")
-    selection = st.sidebar.radio("Go to", ['Chat', "Image Generation"])
+    selection = st.sidebar.radio("Go to", ['Chat', "Image Generation", "Search Engine"])
 
     if selection == "Chat":
         chat_main()
     elif selection == "Image Generation":
         imagegen_main()
+    elif selection == "Search Engine":
+        search_main()
 
 if __name__ == "__main__":  # 메인 스크립트로 실행될 때 (import되지 않고 직접 실행될 때)
     #chat_main()
