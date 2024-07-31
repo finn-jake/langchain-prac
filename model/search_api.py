@@ -20,23 +20,26 @@ image_endpoint = config["config"]["BING_IMAGE_ENDPOINT"]
 video_endpoint = config["config"]["BING_VIDEO_ENDPOINT"]
 suggest_endpoint = config["config"]["BING_SUGGESTION_ENDPOINT"]
 
+app = FastAPI(debug=True)
+
 class searchRequest(BaseModel):
     query: str
     search_type: str
     mkt: str
 
-def search_news(query, mkt, key, endpoint):
+def get_news(query, mkt, key, endpoint):
     params = { 'q': query, 'mkt': mkt }
     headers = { 'Ocp-Apim-Subscription-Key': key }
 
-    resp = requests.get(endpoint, headers, params)
+    resp = requests.get(endpoint, headers=headers, params=params)
     res = resp.json()['value']
 
+    return res
 
 @app.post("/search")
 def search_news(req: searchRequest):
     if req.search_type == 'news':
-        res = search_news(req.query, req.mkt, search_key, news_endpoint)
+        res = get_news(req.query, req.mkt, search_key, news_endpoint)
 
     return {"content": res}
 
