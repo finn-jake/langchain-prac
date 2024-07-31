@@ -136,6 +136,9 @@ def imagegen_main():
 ###################
 # 검색엔진 세션 초기화
 def init_search_session_state():
+    st.subheader("🐋 Bing Search Engine")
+    st.text_input("Search Keyword")
+
     if "search_keyword" not in st.session_state:
         st.session_state.search_keyword =None
 
@@ -148,11 +151,10 @@ def init_search_session_state():
         key = "type_")
 
 def handle_search(search_keyword:str):
-    tmp = tmp
+    pass
 
 def search_main():
     init_search_session_state()
-    st.subheader
 
 ###################
 # 서비스 메인 함수 정의 #
