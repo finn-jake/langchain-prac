@@ -137,7 +137,7 @@ def imagegen_main():
 # 검색엔진 세션 초기화
 def init_search_session_state():
     st.subheader("🐋 Bing Search Engine")
-    st.text_input("Search Keyword")
+    st.text_input("Search Keyword:")
 
     if "search_keyword" not in st.session_state:
         st.session_state.search_keyword =None
