@@ -142,9 +142,6 @@ def init_search_session_state():
     if "search_keyword" not in st.session_state:
         st.session_state.search_keyword =None
 
-    if "type_" not in st.session_state:
-        st.session_state.type_ = "News"
-
     st.sidebar.selectbox(
         "Select Search Type",
         ["General", "News", "Image"],
