@@ -154,7 +154,11 @@ def search_main():
     init_search_session_state()
 
     st.subheader("🐋 Bing Search Engine")
-    prompt = st.text_input("Search Keyword:")
+    #prompt = st.text_input("Search Keyword:")
+        
+    with st.form(key='search_form'):
+        prompt = st.text_input("Search Keyword:")
+        submit_button = st.form_submit_button(label='Submit')
 
     st.divider()
 
