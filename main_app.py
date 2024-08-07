@@ -142,8 +142,8 @@ def init_search_session_state():
     if "search_keyword" not in st.session_state:
         st.session_state.search_keyword =None
     
-    if "search_result" not in st.session_state:
-        st.session_state.search_result = None
+    if "search_results" not in st.session_state:
+        st.session_state.search_results = None
 
     st.sidebar.selectbox(
         "Select Search Type",
