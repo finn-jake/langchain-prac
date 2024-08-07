@@ -144,7 +144,7 @@ def init_search_session_state():
 
     st.sidebar.selectbox(
         "Select Search Type",
-        ["News", "General", "Image"],
+        ["General", "News", "Image"],
         key = "type_")
 
     st.sidebar.selectbox(
