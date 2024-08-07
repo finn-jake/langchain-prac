@@ -141,6 +141,9 @@ def init_search_session_state():
 
     if "search_keyword" not in st.session_state:
         st.session_state.search_keyword =None
+    
+    if "search_result" not in st.session_state:
+        st.session_state.search_result = None
 
     st.sidebar.selectbox(
         "Select Search Type",
@@ -162,7 +165,7 @@ def search_main():
     st.subheader("🐋 Bing Search Engine")
     prompt = st.text_input("Search Keyword:")
 
-    if st.button("Search") or (st.session_state.search_keyword and not prompt.strip()):
+    if st.session_state.search_keyword and not prompt.strip():
         st.session_state.search_keyword = prompt
         if st.session_state.type_ == "News":
             st.session_state.search_results = request_search_api(prompt, "news", st.session_state.lang)
