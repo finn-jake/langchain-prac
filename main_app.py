@@ -164,14 +164,14 @@ def search_main():
 
     if prompt.strip():
         if st.session_state.type_ == "News":
-            contents = request_search_api(prompt, "news", st.session_state.lang)
+            contents = request_search_api(prompt, "news", "ko-KR")
             for content in contents:
                 st.markdown(f"{[content['name']]}({content['url']})")
                 st.markdown(content['description'])
                 st.divider()
             
         elif st.session_state.type_ == "General":
-            contents = request_search_api(prompt, "search", st.session_state.lang)
+            contents = request_search_api(prompt, "search", "ko-KR")
 
             try:
                 #st.subheader(":red[** General Webpage **]")
