@@ -183,7 +183,7 @@ def search_main():
 
         try:
             st.markdown("Related Webpage")
-            for content in contents["realatedSearches"]["value"]:
+            for content in contents["relatedSearches"]["value"]:
                 st.markdown(f"{[content['text']]}({content['webSearchUrl']})")
         except:
             pass
