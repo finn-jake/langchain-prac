@@ -146,13 +146,13 @@ def init_search_session_state():
         "Select Search Type",
         ["General", "News", "Image"],
         key = "type_")
-
+    '''
     st.sidebar.selectbox(
         "Select Region/Country(MKT)",
         ["ko-KR", "en-US"],
         key = "lang"
     )
-
+    '''
 def handle_search(search_keyword:str):
     pass
 
