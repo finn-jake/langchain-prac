@@ -162,33 +162,37 @@ def search_main():
     st.subheader("🐋 Bing Search Engine")
     prompt = st.text_input("Search Keyword:")
 
-    if prompt.strip():
+    if st.button("Search") or (st.session_state.search_keyword and not prompt.strip()):
+        st.session_state.search_keyword = prompt
         if st.session_state.type_ == "News":
-            contents = request_search_api(prompt, "news", "ko-KR")
+            st.session_state.search_results = request_search_api(prompt, "news", st.session_state.lang)
+        elif st.session_state.type_ == "General":
+            st.session_state.search_results = request_search_api(prompt, "search", st.session_state.lang)
+
+    if st.session_state.search_results:
+        contents = st.session_state.search_results
+        if st.session_state.type_ == "News":
             for content in contents:
-                st.markdown(f"{[content['name']]}({content['url']})")
+                st.markdown(f"[{content['name']}]({content['url']})")
                 st.markdown(content['description'])
                 st.divider()
-        
         elif st.session_state.type_ == "General":
-            contents = request_search_api(prompt, "search", "ko-KR")
-
             try:
                 st.subheader(":red[** Webpages **]")
                 for content in contents["webPages"]["value"]:
-                    st.markdown(f"{[content['name']]}({content['url']})")
+                    st.markdown(f"[{content['name']}]({content['url']})")
                     st.markdown(content['snippet'])
                     st.divider()
-            except:
-                pass
+            except Exception as e:
+                st.error(f"Error: {e}")
 
             try:
                 st.subheader(":red[** Related Webpages **]")
                 for content in contents["relatedSearches"]["value"]:
                     st.markdown(content['text'])
-                    st.markdown(f"{[content['webSearchUrl']]}({content['webSearchUrl']})")
-            except:
-                pass
+                    st.markdown(f"[{content['webSearchUrl']}]({content['webSearchUrl']})")
+            except Exception as e:
+                st.error(f"Error: {e}")
         
 ###################
 # 서비스 메인 함수 정의 #
