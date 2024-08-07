@@ -145,10 +145,10 @@ def init_search_session_state():
     if "search_results" not in st.session_state:
         st.session_state.search_results = None
 
-    if "search_type" not in st.session_state:
+    if "type_" not in st.session_state:
         st.session_state.type_ = "General"  # Default search type
 
-    if "search_lang" not in st.session_state:
+    if "lang" not in st.session_state:
         st.session_state.lang = "ko-KR"  # Default language
 
     st.sidebar.selectbox(
