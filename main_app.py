@@ -145,11 +145,18 @@ def init_search_session_state():
     if "search_results" not in st.session_state:
         st.session_state.search_results = None
 
-    if "type_" not in st.session_state:
-        st.session_state.type_ = "General"  # Default search type
+    st.sidebar.selectbox(
+        "Select Search Type",
+        ["General", "News", "Image"],
+        key = "type_",
+        index=["General", "News", "Image"].index(st.session_state.type_))
 
-    if "lang" not in st.session_state:
-        st.session_state.lang = "ko-KR"  # Default language
+    st.sidebar.selectbox(
+        "Select Region/Country(MKT)",
+        ["ko-KR", "en-US"],
+        key = "lang",
+        index=["ko-KR", "en-US"].index(st.session_state.lang)
+    )
     
 def handle_search(search_keyword:str):
     if st.session_state.type_ == "News":
@@ -168,19 +175,6 @@ def search_main():
     if prompt.strip():
         st.session_state.search_keyword = prompt
         handle_search(prompt)
-
-    st.sidebar.selectbox(
-        "Select Search Type",
-        ["General", "News", "Image"],
-        key = "type_",
-        index=["General", "News", "Image"].index(st.session_state.type_))
-
-    st.sidebar.selectbox(
-        "Select Region/Country(MKT)",
-        ["ko-KR", "en-US"],
-        key = "lang",
-        index=["ko-KR", "en-US"].index(st.session_state.lang)
-    )
 
     if st.session_state.search_results:
         if st.session_state.type_ == "News":
