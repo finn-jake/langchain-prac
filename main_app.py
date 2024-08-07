@@ -142,6 +142,9 @@ def init_search_session_state():
     if "search_keyword" not in st.session_state:
         st.session_state.search_keyword =None
 
+    if "search_results" not in st.session_state:
+        st.session_state.search_results = None
+
     st.sidebar.selectbox(
         "Select Search Type",
         ["General", "News", "Image"],
@@ -154,7 +157,12 @@ def init_search_session_state():
     )
     
 def handle_search(search_keyword:str):
-    pass
+    if st.session_state.type_ == "News":
+        contents = request_search_api(search_keyword, "news", st.session_state.lang)
+        st.session_state.search_results = contents
+    elif st.session_state.type_ == "General":
+        contents = request_search_api(search_keyword, "search", st.session_state.lang)
+        st.session_state.search_results = contents
 
 def search_main():
     init_search_session_state()
@@ -163,31 +171,32 @@ def search_main():
     prompt = st.text_input("Search Keyword:")
 
     if prompt.strip():
+        st.session_state.search_keyword = prompt
+        handle_search(prompt)
+
+    if st.session_state.search_results:
         if st.session_state.type_ == "News":
-            contents = request_search_api(prompt, "news", "ko-KR")
+            contents = st.session_state.search_results
             for content in contents:
-                st.markdown(f"{[content['name']]}({content['url']})")
+                st.markdown(f"[{content['name']}]({content['url']})")
                 st.markdown(content['description'])
                 st.divider()
         
         elif st.session_state.type_ == "General":
-            contents = request_search_api(prompt, "search", "ko-KR")
-
+            contents = st.session_state.search_results
             try:
-                #st.subheader(":red[** Webpages **]")
                 for content in contents["webPages"]["value"]:
-                    st.markdown(f"{[content['name']]}({content['url']})")
+                    st.markdown(f"[{content['name']}]({content['url']})")
                     st.markdown(content['snippet'])
                     st.divider()
-            except:
+            except KeyError:
                 pass
 
             try:
-                #st.subheader(":red[** Related Webpages **]")
                 for content in contents["relatedSearches"]["value"]:
                     st.markdown(content['text'])
-                    st.markdown(f"{[content['webSearchUrl']]}({content['webSearchUrl']})")
-            except:
+                    st.markdown(f"[{content['webSearchUrl']}]({content['webSearchUrl']})")
+            except KeyError:
                 pass
         
 ###################
