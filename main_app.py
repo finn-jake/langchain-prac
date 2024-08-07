@@ -140,7 +140,7 @@ def imagegen_main():
 def init_search_session_state():
 
     if "search_keyword" not in st.session_state:
-        st.session_state.search_keyword =None
+        st.session_state.search_keyword =""
 
     if "search_results" not in st.session_state:
         st.session_state.search_results = None
@@ -177,7 +177,9 @@ def search_main():
     init_search_session_state()
 
     st.subheader("🐋 Bing Search Engine")
-    prompt = st.text_input("Search Keyword:")
+    prompt = st.text_input("Search Keyword:", st.session_state.search_keyword)
+    if prompt != st.session_state.search_keyword:
+        st.session_state.search_keyword = prompt
 
     if prompt.strip():
         st.session_state.search_keyword = prompt
