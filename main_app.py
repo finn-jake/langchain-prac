@@ -173,7 +173,7 @@ def search_main():
         contents = request_search_api(prompt, "search", st.session_state.lang)
 
         try:
-            st.markdown("General Webpage")
+            st.markdown(":red[** General Webpage **]")
             for content in contents["webPages"]["value"]:
                 st.markdown(f"{[content['name']]}({content['url']})")
                 st.markdown(content['snippet'])
@@ -182,9 +182,10 @@ def search_main():
             pass
 
         try:
-            st.markdown("Related Webpage")
+            st.markdown(":red[** Related Webpage **]")
             for content in contents["relatedSearches"]["value"]:
-                st.markdown(f"{[content['text']]}({content['webSearchUrl']})")
+                st.markdown(content['text'])
+                st.markdown(f"{[content['webSearchUrl']]}({content['webSearchUrl']})")
         except:
             pass
 
