@@ -145,15 +145,23 @@ def init_search_session_state():
     if "search_results" not in st.session_state:
         st.session_state.search_results = None
 
+    if "search_type" not in st.session_state:
+        st.session_state.type_ = "General"  # Default search type
+
+    if "search_lang" not in st.session_state:
+        st.session_state.lang = "ko-KR"  # Default language
+
     st.sidebar.selectbox(
         "Select Search Type",
         ["General", "News", "Image"],
-        key = "type_")
+        key = "type_",
+        index=["General", "News", "Image"].index(st.session_state.type_))
 
     st.sidebar.selectbox(
         "Select Region/Country(MKT)",
         ["ko-KR", "en-US"],
-        key = "lang"
+        key = "lang",
+        index=["ko-KR", "en-US"].index(st.session_state.lang)
     )
     
 def handle_search(search_keyword:str):
