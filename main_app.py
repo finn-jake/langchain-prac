@@ -147,6 +147,12 @@ def init_search_session_state():
         ["General", "News", "Image"],
         key = "type_")
 
+    st.sidebar.selectbox(
+        "Select Region/Country(MKT)",
+        ["ko-KR", "en-US"],
+        key = "lang"
+    )
+
 def handle_search(search_keyword:str):
     pass
 
@@ -159,11 +165,24 @@ def search_main():
     st.divider()
 
     if st.session_state.type_ == "News":
-        contents = request_search_api(prompt, "news", 'ko-KR')
+        contents = request_search_api(prompt, "news", st.session_state.lang)
         for content in contents:
             st.markdown(f"{[content['name']]}({content['url']})")
             st.markdown(content['description'])
             st.divider()
+        
+    elif st.session_state.type_ == "General":
+        contents = request_search_api(prompt, "search", st.session_state.lang)
+
+        try:
+            for content in contents["webPages"]["value"]:
+                st.markdown(f"{[content['name']]}({content['url']})")
+                st.markdown(content['snippet'])
+                st.divider()
+        except:
+            pass
+
+
 
 ###################
 # 서비스 메인 함수 정의 #

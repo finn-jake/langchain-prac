@@ -36,10 +36,22 @@ def get_news(query, mkt, key, endpoint):
 
     return res
 
+def get_search(query, mkt, key, endpoint):
+    params = { 'q': query, 'mkt': mkt}
+    headers = { 'Ocp-Apim-Subscription-Key': key }
+
+    resp = requests.get(endpoint, headers = headers, params=params)
+    res = resp.json()
+
+    return res
+
 @app.post("/search")
 def search_news(req: searchRequest):
     if req.search_type == 'news':
         res = get_news(req.query, req.mkt, search_key, news_endpoint)
+
+    elif req.search_type == "search":
+        res = get_search(req.query, req.mkt, search_key, search_endpoint)
 
     return {"content": res}
 
