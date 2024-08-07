@@ -162,32 +162,33 @@ def search_main():
     st.subheader("🐋 Bing Search Engine")
     prompt = st.text_input("Search Keyword:")
 
-    if st.session_state.type_ == "News":
-        contents = request_search_api(prompt, "news", st.session_state.lang)
-        for content in contents:
-            st.markdown(f"{[content['name']]}({content['url']})")
-            st.markdown(content['description'])
-            st.divider()
-        
-    elif st.session_state.type_ == "General":
-        contents = request_search_api(prompt, "search", st.session_state.lang)
-
-        try:
-            #st.subheader(":red[** General Webpage **]")
-            for content in contents["webPages"]["value"]:
+    if prompt.strip():
+        if st.session_state.type_ == "News":
+            contents = request_search_api(prompt, "news", st.session_state.lang)
+            for content in contents:
                 st.markdown(f"{[content['name']]}({content['url']})")
-                st.markdown(content['snippet'])
+                st.markdown(content['description'])
                 st.divider()
-        except:
-            pass
+            
+        elif st.session_state.type_ == "General":
+            contents = request_search_api(prompt, "search", st.session_state.lang)
 
-        try:
-            #st.subheader(":red[** Related Webpage **]")
-            for content in contents["relatedSearches"]["value"]:
-                st.markdown(content['text'])
-                st.markdown(f"{[content['webSearchUrl']]}({content['webSearchUrl']})")
-        except:
-            pass
+            try:
+                #st.subheader(":red[** General Webpage **]")
+                for content in contents["webPages"]["value"]:
+                    st.markdown(f"{[content['name']]}({content['url']})")
+                    st.markdown(content['snippet'])
+                    st.divider()
+            except:
+                pass
+
+            try:
+                #st.subheader(":red[** Related Webpage **]")
+                for content in contents["relatedSearches"]["value"]:
+                    st.markdown(content['text'])
+                    st.markdown(f"{[content['webSearchUrl']]}({content['webSearchUrl']})")
+            except:
+                pass
 
 ###################
 # 서비스 메인 함수 정의 #
