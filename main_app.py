@@ -169,12 +169,12 @@ def search_main():
                 st.markdown(f"{[content['name']]}({content['url']})")
                 st.markdown(content['description'])
                 st.divider()
-            
+        '''
         elif st.session_state.type_ == "General":
             contents = request_search_api(prompt, "search", "ko-KR")
 
             try:
-                #st.subheader(":red[** General Webpage **]")
+                st.subheader(":red[** Webpages **]")
                 for content in contents["webPages"]["value"]:
                     st.markdown(f"{[content['name']]}({content['url']})")
                     st.markdown(content['snippet'])
@@ -183,13 +183,13 @@ def search_main():
                 pass
 
             try:
-                #st.subheader(":red[** Related Webpage **]")
+                st.subheader(":red[** Related Webpages **]")
                 for content in contents["relatedSearches"]["value"]:
                     st.markdown(content['text'])
                     st.markdown(f"{[content['webSearchUrl']]}({content['webSearchUrl']})")
             except:
                 pass
-
+            '''
 ###################
 # 서비스 메인 함수 정의 #
 ###################
