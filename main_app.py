@@ -162,8 +162,6 @@ def search_main():
     st.subheader("🐋 Bing Search Engine")
     prompt = st.text_input("Search Keyword:")
 
-    st.divider()
-
     if st.session_state.type_ == "News":
         contents = request_search_api(prompt, "news", st.session_state.lang)
         for content in contents:
@@ -175,6 +173,7 @@ def search_main():
         contents = request_search_api(prompt, "search", st.session_state.lang)
 
         try:
+            st.markdown("General Webpage")
             for content in contents["webPages"]["value"]:
                 st.markdown(f"{[content['name']]}({content['url']})")
                 st.markdown(content['snippet'])
@@ -182,14 +181,19 @@ def search_main():
         except:
             pass
 
-
+        try:
+            st.markdown("Related Webpage")
+            for content in contents["realatedSearches"]["value"]:
+                st.markdown(f"{[content['text']]}({content['webSearchUrl']})")
+        except:
+            pass
 
 ###################
 # 서비스 메인 함수 정의 #
 ###################
 def main():
     st.sidebar.title("Navigation")
-    selection = st.sidebar.radio("Go to", ['Chat', "Image Generation", "Search Engine"])
+    selection = st.sidebar.radio("Go to", ['Chat', "Search Engine", "Image Generation",])
     st.sidebar.markdown("<br>", unsafe_allow_html=True)
     st.sidebar.markdown("<br>", unsafe_allow_html=True)
 
