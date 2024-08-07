@@ -189,7 +189,7 @@ def search_main():
                     st.markdown(f"{[content['webSearchUrl']]}({content['webSearchUrl']})")
             except:
                 pass
-            '''
+        '''
 ###################
 # 서비스 메인 함수 정의 #
 ###################
