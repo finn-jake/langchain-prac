@@ -148,7 +148,7 @@ def init_search_session_state():
     if "type_" not in st.session_state:
         st.session_state.type_ = "General"
 
-    if "lang" not on st.session_state:
+    if "lang" not in on st.session_state:
         st.session_state.lang = "ko-KR"
 
     st.sidebar.selectbox(
