@@ -55,6 +55,9 @@ def search_news(req: searchRequest):
     elif req.search_type == "search":
         res = get_search(req.query, req.mkt, search_key, search_endpoint)
 
+    elif req.search_type == "image":
+        res = get_search(req.query, req.mkt, search_key, image_endpoint)
+
     return {"content": res}
 
 

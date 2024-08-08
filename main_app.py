@@ -180,7 +180,6 @@ def handle_search(search_keyword:str):
 
 def search_main():
     init_search_session_state()
-    print(st.session_state.type_)
 
     st.subheader("🐋 Bing Search Engine")
     prompt = st.text_input("Search Keyword:", st.session_state.search_keyword)
@@ -193,6 +192,7 @@ def search_main():
         handle_search(prompt)
 
     if st.session_state.search_results:
+        # 뉴스 검색 결과
         if st.session_state.type_ == "News":
             contents = st.session_state.search_results
             for content in contents:
@@ -200,6 +200,7 @@ def search_main():
                 st.markdown(content['description'])
                 st.divider()
         
+        # 일반 검색 결과
         elif st.session_state.type_ == "General":
             contents = st.session_state.search_results
             try:
@@ -217,8 +218,16 @@ def search_main():
             except KeyError:
                 pass
 
+        # 이미지 검색 결과
         elif st.session_state.type_ == "Image":
             contents = st.session_state.search_results
+            try:
+                for content in contents["value"]:
+                    st.markdown(f"[{content['name']}]({content['thumbnailUrl']})")
+                    st.markdown(content['datePublished'])
+                    st.divider()
+            except KeyError:
+                pass       
         
 ###################
 # 서비스 메인 함수 정의 #
