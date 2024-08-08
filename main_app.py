@@ -188,7 +188,7 @@ def search_main():
     if prompt != st.session_state.search_keyword:
         st.session_state.search_keyword = prompt
 
-    if prompt.strip() and st.session_state.search_results is None:
+    if prompt.strip():
         st.session_state.search_keyword = prompt
         handle_search(prompt)
 
