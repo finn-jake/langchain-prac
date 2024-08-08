@@ -147,6 +147,7 @@ def init_search_session_state():
 
     if "type_" not in st.session_state:
         st.session_state.type_ = "General"
+        st.markdown(st.session_state.type_)
 
     if "lang" not in st.session_state:
         st.session_state.lang = "ko-KR"
@@ -187,7 +188,7 @@ def search_main():
     if prompt != st.session_state.search_keyword:
         st.session_state.search_keyword = prompt
 
-    if prompt.strip():
+    if prompt.strip() and st.session_state.search_results is None:
         st.session_state.search_keyword = prompt
         handle_search(prompt)
 
