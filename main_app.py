@@ -184,13 +184,12 @@ def search_main():
     st.subheader("🐋 Bing Search Engine")
     prompt = st.text_input("Search Keyword:", st.session_state.search_keyword)
 
-    if prompt and prompt != st.session_state.search_keyword:
+    if prompt != st.session_state.search_keyword:
+        st.session_state.search_keyword = prompt
+
+    if prompt.strip():
         st.session_state.search_keyword = prompt
         handle_search(prompt)
-
-    #if prompt.strip():
-    #    st.session_state.search_keyword = prompt
-    #    handle_search(prompt)
 
     if st.session_state.search_results:
         if st.session_state.type_ == "News":
