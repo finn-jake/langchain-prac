@@ -147,7 +147,6 @@ def init_search_session_state():
 
     if "type_" not in st.session_state:
         st.session_state.type_ = "General"
-        st.markdown(st.session_state.type_)
 
     if "lang" not in st.session_state:
         st.session_state.lang = "ko-KR"
@@ -181,6 +180,7 @@ def handle_search(search_keyword:str):
 
 def search_main():
     init_search_session_state()
+    print(st.session_state.type_)
 
     st.subheader("🐋 Bing Search Engine")
     prompt = st.text_input("Search Keyword:", st.session_state.search_keyword)
