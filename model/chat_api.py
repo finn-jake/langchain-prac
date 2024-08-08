@@ -81,6 +81,7 @@ async def chat(req: ChatRequest):
         messages=req.messages,
             #{"role": "system", "content": get_prompt_parsing_assistant()},  # 시스템 메시지
             #{"role": "user", "content": req.message}  # 사용자 메시지
+        temperature=0.6,
         stream=True  # 스트림 모드 사용
     )
 

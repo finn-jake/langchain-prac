@@ -169,9 +169,14 @@ def handle_search(search_keyword:str):
     if st.session_state.type_ == "News":
         contents = request_search_api(search_keyword, "news", st.session_state.lang)
         st.session_state.search_results = contents
+
     elif st.session_state.type_ == "General":
         contents = request_search_api(search_keyword, "search", st.session_state.lang)
         st.session_state.search_results = contents
+
+    elif st.session_state.type_ == "Image":
+        contents = request_search_api(search_keyword, "search", st.session_state.lang)
+        st.session_state.search_results = contens
 
 def search_main():
     init_search_session_state()
@@ -209,6 +214,9 @@ def search_main():
                     st.markdown(f"[{content['webSearchUrl']}]({content['webSearchUrl']})")
             except KeyError:
                 pass
+
+        elif st.session_state.type_ == "Image":
+            contents = st.session_state.search_results
         
 ###################
 # 서비스 메인 함수 정의 #
