@@ -154,14 +154,14 @@ def init_search_session_state():
     st.sidebar.selectbox(
         "Select Search Type",
         ["General", "News", "Image"],
-        key = "type_",
+        #key = "type_",
         index=["General", "News", "Image"].index(st.session_state.type_)
         )
 
     st.sidebar.selectbox(
         "Select Region/Country(MKT)",
         ["ko-KR", "en-US"],
-        key = "lang",
+        #key = "lang",
         index=["ko-KR", "en-US"].index(st.session_state.lang)
     )
     
