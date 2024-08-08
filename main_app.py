@@ -175,7 +175,7 @@ def handle_search(search_keyword:str):
         st.session_state.search_results = contents
 
     elif st.session_state.type_ == "Image":
-        contents = request_search_api(search_keyword, "search", st.session_state.lang)
+        contents = request_search_api(search_keyword, "image", st.session_state.lang)
         st.session_state.search_results = contents
 
 def search_main():
