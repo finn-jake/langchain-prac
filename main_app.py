@@ -270,7 +270,7 @@ async def handle_search_chat(message: str):
     full_response = ""
     message_placeholder = st.empty()  # 응답 메시지를 위한 빈 공간 생성
     #async for chunk in request_chat_api(message):  # 챗봇 API로부터 응답을 청크 단위로 받음
-    async for chunk in request_chat_api(st.session_state.search_messages, st.session_state.model):
+    async for chunk in request_search_chat_api(st.session_state.search_messages, st.session_state.model):
         full_response += chunk  # 응답 청크를 누적
         message_placeholder.markdown(full_response)  # 누적된 응답을 마크다운 형식으로 출력
         await asyncio.sleep(0.01)  # 약간의 지연을 두어 비동기 처리를 원활하게 함
