@@ -279,7 +279,7 @@ async def handle_search_chat(message: str):
 
 # 챗봇 애플리케이션의 주요 함수
 def search_chat_main():
-    init_session_state()  # 세션 상태를 초기화
+    init_schat_session_state()  # 세션 상태를 초기화
 
     if message := st.chat_input(""):  # 챗 입력란에 입력된 메시지를 읽어옴
         loop = asyncio.new_event_loop()  # 새로운 이벤트 루프를 생성
