@@ -72,13 +72,15 @@ def init_session_state():
     # 애플리케이션 재실행 시, 기존 채팅 메시지를 표시
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
-            st.markdown(message["content"])  # 기존 메시지를 마크다운 형식으로 출력
+            #st.markdown(message["content"])  # 기존 메시지를 마크다운 형식으로 출력
+            st.markdown(f'<p style="font-size:12px;">{message["content"]}</p>', unsafe_allow_html=True)  # 기존 메시지를 마크다운 형식으로 출력
 
 # 챗 메시지를 처리하는 비동기 함수
 async def handle_chat(message: str):
     st.session_state.messages.append({"role": "user", "content": message})  # 사용자가 보낸 메시지를 세션 상태에 추가
     with st.chat_message("user"):  # 사용자 메시지 영역을 생성
-        st.markdown(message)  # 사용자의 메시지를 마크다운 형식으로 출력
+        #st.markdown(message)  # 사용자의 메시지를 마크다운 형식으로 출력
+        st.markdown(f'<p style="font-size:12px;">{message}</p>', unsafe_allow_html=True)
     #print(message)  # 디버깅을 위해 메시지를 출력
 
     full_response = ""
@@ -86,7 +88,8 @@ async def handle_chat(message: str):
     #async for chunk in request_chat_api(message):  # 챗봇 API로부터 응답을 청크 단위로 받음
     async for chunk in request_chat_api(st.session_state.messages, st.session_state.model):
         full_response += chunk  # 응답 청크를 누적
-        message_placeholder.markdown(full_response)  # 누적된 응답을 마크다운 형식으로 출력
+        #message_placeholder.markdown(full_response)  # 누적된 응답을 마크다운 형식으로 출력
+        message_placeholder.markdown(f'<p style="font-size:12px;">{full_response}</p>', unsafe_allow_html=True)
         await asyncio.sleep(0.01)  # 약간의 지연을 두어 비동기 처리를 원활하게 함
 
     st.session_state.messages.append({"role": "assistant", "content": full_response})  # 어시스턴트의 응답을 세션 상태에 추가
@@ -294,14 +297,15 @@ def search_chat_main():
 def main():
     #st.sidebar.title("Navigation")
     #selection = st.sidebar.radio("Go to", ['Chat', "Search Engine", "Image Generation", "Chat_v2"])
+
     with st.sidebar:
         selection = option_menu("Go to", ["Chat", "Search Engine", "Image Generation", "Chat_V2"],
                             icons=['chat', 'file-earmark-play', 'brush', 'activity'],
                             menu_icon="app-indicator", default_index=0,
                             styles={
-            "container": {"padding": "4!important",}, #"background-color": "#134f5c"
-            "icon": {"color": "#76a5af", "font-size": "25px"},
-            "nav-link": {"font-size": "15px", "text-align": "left", "margin":"0px", "--hover-color": "#b1d3da"},
+            "container": {"padding": "2!important",}, #"background-color": "#134f5c"
+            "icon": {"color": "#76a5af", "font-size": "20px"},
+            "nav-link": {"font-size": "14px", "text-align": "left", "margin":"0px", "--hover-color": "#b1d3da"},
             "nav-link-selected": {"background-color": "#08c7b4"},})
 
     st.sidebar.markdown("<br>", unsafe_allow_html=True)
