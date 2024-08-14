@@ -111,9 +111,10 @@ def get_search_content(term, mkt, key, endpoint):
             res_urls.append(url)
         except:
             pass
-
+    
+    result = {"search term" : term}
     if len(contents) >= 1:
-        result = {"search term" : term}
+        #result = {"search term" : term}
         cnt = 0
 
         for idx in range(len(contents)):
