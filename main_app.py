@@ -1,4 +1,6 @@
 import streamlit as st  # Streamlit을 이용하여 웹 애플리케이션을 구축
+from streamlit_option_menu import option_menu
+
 import asyncio  # 비동기 작업을 위한 asyncio 모듈
 import httpx  # 비동기 HTTP 요청을 위한 httpx 모듈
 from io import BytesIO
@@ -290,8 +292,18 @@ def search_chat_main():
 # 서비스 메인 함수 정의 #
 ###################
 def main():
-    st.sidebar.title("Navigation")
-    selection = st.sidebar.radio("Go to", ['Chat', "Search Engine", "Image Generation", "Chat_v2"])
+    #st.sidebar.title("Navigation")
+    #selection = st.sidebar.radio("Go to", ['Chat', "Search Engine", "Image Generation", "Chat_v2"])
+    with st.sidebar:
+        selection = option_menu("Go to", ["Chat", "Search Engine", "Image Generation", "Chat_V2"],
+                            icons=['chat', 'file-earmark-play', 'brush', 'activity'],
+                            menu_icon="app-indicator", default_index=0,
+                            styles={
+            "container": {"padding": "4!important",}, #"background-color": "#134f5c"
+            "icon": {"color": "#76a5af", "font-size": "25px"},
+            "nav-link": {"font-size": "15px", "text-align": "left", "margin":"0px", "--hover-color": "#b1d3da"},
+            "nav-link-selected": {"background-color": "#08c7b4"},})
+
     st.sidebar.markdown("<br>", unsafe_allow_html=True)
     st.sidebar.markdown("<br>", unsafe_allow_html=True)
 
