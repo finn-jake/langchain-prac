@@ -45,6 +45,17 @@ def request_search_api(query, search_type, mkt):
     return resp["content"]
 
 
+# 챗봇 API에 요청을 보내기 위한 비동기 함수
+async def request_search_chat_api(messages, model):
+    async with httpx.AsyncClient() as client:  # 비동기 HTTP 클라이언트를 생성
+        async with client.stream("POST",
+                                 API_SEARCH_CHAT_URL,
+                                 json={"messages": messages, "model": model},
+                                 timeout=None) as response:
+            # API 응답을 스트리밍 방식으로 받음
+            async for chunk in response.aiter_text():
+                yield chunk  # 응답 데이터를 청크 단위로 반환
+
 ###################
 # 채팅 주요 함수 정의 #
 ###################
@@ -254,7 +265,7 @@ def init_schat_session_state():
         key = "model")
     
     # 채팅 히스토리를 초기화
-    if "messages" not in st.session_state:
+    if "search_messages" not in st.session_state:
         st.session_state.search_messages = []  # 세션 상태에 "messages" 키를 추가하고 빈 리스트로 초기화
 
     # 애플리케이션 재실행 시, 기존 채팅 메시지를 표시
@@ -277,7 +288,7 @@ async def handle_search_chat(message: str):
         message_placeholder.markdown(full_response)  # 누적된 응답을 마크다운 형식으로 출력
         await asyncio.sleep(0.01)  # 약간의 지연을 두어 비동기 처리를 원활하게 함
 
-    st.session_state.messages.append({"role": "assistant", "content": full_response})  # 어시스턴트의 응답을 세션 상태에 추가
+    st.session_state.search_messages.append({"role": "assistant", "content": full_response})  # 어시스턴트의 응답을 세션 상태에 추가
 
 # 챗봇 애플리케이션의 주요 함수
 def search_chat_main():
@@ -286,7 +297,7 @@ def search_chat_main():
     if message := st.chat_input(""):  # 챗 입력란에 입력된 메시지를 읽어옴
         loop = asyncio.new_event_loop()  # 새로운 이벤트 루프를 생성
         asyncio.set_event_loop(loop)  # 생성한 이벤트 루프를 현재 루프로 설정
-        loop.run_until_complete(handle_chat(message))  # handle_chat 함수를 실행하여 사용자의 메시지를 처리 
+        loop.run_until_complete(handle_search_chat(message))  # handle_chat 함수를 실행하여 사용자의 메시지를 처리 
         
 ###################
 # 서비스 메인 함수 정의 #
@@ -314,7 +325,7 @@ def main():
         imagegen_main()
     elif selection == "Search Engine":
         search_main()
-    elif selection == "Chat_v2":
+    elif selection == "Chat_V2":
         search_chat_main()
 
     st.sidebar.markdown("<br>", unsafe_allow_html=True)
