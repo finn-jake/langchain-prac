@@ -157,7 +157,6 @@ async def chat(req: ChatRequest):
     
 
     response_message = response.choices[0].message
-    #messages.append(response_message)
 
     if response_message.tool_calls:
         messages.append(response_message)
