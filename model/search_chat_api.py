@@ -147,6 +147,7 @@ async def chat(req: ChatRequest):
         model = "hatcheryOpenaiCanadaGPT4o"
 
     messages = req.messages
+    print(req.messages[-1]['content'])
 
     response = await client.chat.completions.create(
                 model=model,
@@ -156,9 +157,10 @@ async def chat(req: ChatRequest):
     
 
     response_message = response.choices[0].message
-    messages.append(response_message)
+    #messages.append(response_message)
 
     if response_message.tool_calls:
+        messages.append(response_message)
         for tool_call in response_message.tool_calls:
             if tool_call.function.name == "bing_search_function":
                 function_args = json.loads(tool_call.function.arguments)
@@ -180,12 +182,6 @@ async def chat(req: ChatRequest):
         #temperature=0.6,
         stream=True  # 스트림 모드 사용
     )
-
-    try:
-        print(messages[-2]['content'])  # 사용자 메시지를 콘솔에 출력합니다.
-        #res_ = res.choices[0].message.model_dump()["content"]
-    except:
-        print(messages[-3]['content'])
 
     # 스트리밍 응답을 반환합니다.
     return StreamingResponse(stream_processor(res), media_type='text/event-stream')
