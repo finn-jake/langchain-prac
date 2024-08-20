@@ -139,6 +139,7 @@ async def stream_processor(response, messages, model):
             if hasattr(delta, 'content') and delta.content:
                 yield delta.content            # 델타의 콘텐츠를 스트리밍으로 반환
             elif (hasattr(delta, 'tool_calls')) and (delta.tool_calls):
+                print(delta)
                 if delta.tool_calls[0].index == 0:
                     search_chunk += delta.tool_calls[0].function.arguments
 
@@ -146,8 +147,11 @@ async def stream_processor(response, messages, model):
                         response_message = delta
                         cnt += 1
 
+
     if search_chunk != "":
         response_message.tool_calls[0].function.arguments = search_chunk
+        if not response_message.role:
+            response_message.role = 'assistant'
         messages.append(response_message)
 
 
