@@ -263,6 +263,26 @@ def init_schat_session_state():
         "Select Model",
         ["gpt-4", "gpt-4o"],
         key = "model")
+
+    st.sidebar.markdown("<br>", unsafe_allow_html=True)
+
+    st.sidebar.slider(
+        "Number of Search Url",
+        min_value= 3,
+        max_value= 10,
+        value = 3,
+        step = 1,
+        key = "search_url_number"
+    )
+
+    st.sidebar.slider(
+        "Maximum Search Keyword Variation",
+        min_value= 1,
+        max_value= 3,
+        value = 1,
+        step = 1,
+        key = "keyword_var"
+    )
     
     # 채팅 히스토리를 초기화
     if "search_messages" not in st.session_state:
