@@ -286,7 +286,7 @@ async def handle_search_chat(message: str):
     async for chunk in request_search_chat_api(st.session_state.search_messages, st.session_state.model):
         full_response += chunk  # 응답 청크를 누적
         message_placeholder.markdown(full_response)  # 누적된 응답을 마크다운 형식으로 출력
-        await asyncio.sleep(0.05)  # 약간의 지연을 두어 비동기 처리를 원활하게 함
+        await asyncio.sleep(0.025)  # 약간의 지연을 두어 비동기 처리를 원활하게 함
 
     st.session_state.search_messages.append({"role": "assistant", "content": full_response})  # 어시스턴트의 응답을 세션 상태에 추가
 
