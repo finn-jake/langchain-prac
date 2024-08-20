@@ -161,7 +161,6 @@ async def chat(req: ChatRequest):
     if response_message.tool_calls:
 
         print(response_message.tool_calls)
-        print("\n")
 
         messages.append(response_message)
         for tool_call in response_message.tool_calls:
@@ -177,7 +176,6 @@ async def chat(req: ChatRequest):
                     "content" : search_result
                 })
 
-    print(messages)
     res = await client.chat.completions.create(
         model=model,
         messages=messages,
