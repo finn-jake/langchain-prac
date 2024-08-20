@@ -138,16 +138,18 @@ async def stream_processor(response, messages, model):
             delta = chunk.choices[0].delta     # 첫 번째 선택의 델타를 얻음
             if hasattr(delta, 'content') and delta.content:
                 yield delta.content            # 델타의 콘텐츠를 스트리밍으로 반환
-            elif hasattr(delta, 'tool_calls') and delta.tool_calls:
-                search_chunk += delta.tool_calls[0].function.arguments
+            elif (hasattr(delta, 'tool_calls')) and (delta.tool_calls):
+                if delta.tool_calls[0].index == 0:
+                    search_chunk += delta.tool_calls[0].function.arguments
 
-                if cnt == 0:
-                    response_message = delta
-                    cnt += 1
+                    if cnt == 0:
+                        response_message = delta
+                        cnt += 1
 
     if search_chunk != "":
         response_message.tool_calls[0].function.arguments = search_chunk
         messages.append(response_message)
+
 
         for tool_call in response_message.tool_calls:
             if tool_call.function.name == "bing_search_function":
@@ -161,8 +163,6 @@ async def stream_processor(response, messages, model):
                     "name" : "bing_search_function",
                     "content" : search_result
                 })
-
-        print(messages)
 
         res = await client.chat.completions.create(
             model=model,
