@@ -307,7 +307,7 @@ def main():
     #selection = st.sidebar.radio("Go to", ['Chat', "Search Engine", "Image Generation", "Chat_v2"])
 
     with st.sidebar:
-        selection = option_menu("Go to", ["Chat", "Search Engine", "Image Generation", "Chat_V2"],
+        selection = option_menu("Go to", ["Chat_V2", "Search Engine", "Image Generation", "Chat"],
                             icons=['chat', 'file-earmark-play', 'brush', 'activity'],
                             menu_icon="app-indicator", default_index=0,
                             styles={
