@@ -251,8 +251,8 @@ def init_schat_session_state():
     #st.set_page_config(layout = "wide") # 기본 세팅을 와이드 뷰 버전으로 세팅
     st.title("🥑 Chat with GPT Version 2")  # 애플리케이션의 제목을 설정
     st.subheader(":blue[For Smart Cho]")  # 정보글을 출력
-    st.write(":red[더 빨라지게 만듦]")
-    st.write(":red[오류 나는 거 고침 (옆에 슬라이더 아직 작동 안함)]")
+    st.write(":tornado: 	:umbrella_with_rain_drops:")
+    #st.write(":red[오류 나는 거 고침 (옆에 슬라이더 아직 작동 안함)]")
     st.divider()
 
     # 모델 선택을 위한 selectbox 추가
