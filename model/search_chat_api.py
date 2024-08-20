@@ -159,6 +159,7 @@ async def chat(req: ChatRequest):
     response_message = response.choices[0].message
 
     if response_message.tool_calls:
+        print(response_message.tool_calls)
         messages.append(response_message)
         for tool_call in response_message.tool_calls:
             if tool_call.function.name == "bing_search_function":
