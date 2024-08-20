@@ -128,57 +128,12 @@ def get_search_content(term, mkt, key, endpoint):
 
 
 # 비동기 스트림 처리 함수
-async def stream_processor(response, messages, model):
-    search_chunk = ""
-    cnt = 0
-    reponse_message = None
-
+async def stream_processor(response):
     async for chunk in response:
         if len(chunk.choices) > 0:             # 응답에서 선택된 결과가 있는지 확인
             delta = chunk.choices[0].delta     # 첫 번째 선택의 델타를 얻음
-            if hasattr(delta, 'content') and delta.content:
+            if delta.content:
                 yield delta.content            # 델타의 콘텐츠를 스트리밍으로 반환
-            elif hasattr(delta, 'tool_calls') and delta.tool_calls:
-                search_chunk += delta.tool_calls[0].function.arguments
-
-                if cnt == 0:
-                    response_message = delta
-                    cnt += 1
-
-    if search_chunk != "":
-        response_message.tool_calls[0].function.arguments = search_chunk
-        messages.append(response_message)
-
-        for tool_call in response_message.tool_calls:
-            if tool_call.function.name == "bing_search_function":
-                function_args = json.loads(tool_call.function.arguments)
-
-                #search_response = get_search_content(function_args.get('search_term'))
-                search_result = get_search_content(function_args.get('search term'), 'ko-KR', search_key, search_endpoint)
-                messages.append({
-                    "tool_call_id": tool_call.id,
-                    "role" : "tool",
-                    "name" : "bing_search_function",
-                    "content" : search_result
-                })
-
-        print(messages)
-
-        res = await client.chat.completions.create(
-            model=model,
-            messages=messages,
-                #{"role": "system", "content": get_prompt_parsing_assistant()},  # 시스템 메시지
-                #{"role": "user", "content": req.message}  # 사용자 메시지
-            #temperature=0.6,
-            stream=True  # 스트림 모드 사용
-            )
-
-        async for chunk in res:
-            if len(chunk.choices) > 0:             # 응답에서 선택된 결과가 있는지 확인
-                delta = chunk.choices[0].delta     # 첫 번째 선택의 델타를 얻음
-                if hasattr(delta, 'content') and delta.content:
-                    yield delta.content
-        
 
 
 # 채팅 엔드포인트를 정의하는 FastAPI POST 경로
@@ -198,11 +153,40 @@ async def chat(req: ChatRequest):
                 model=model,
                 messages=messages,
                 tools=tools,
-                tool_choice="auto",
-                stream = True)
+                tool_choice="auto",)
     
-    return StreamingResponse(stream_processor(response, messages, model), media_type='text/event-stream')
 
+    response_message = response.choices[0].message
+
+    if response_message.tool_calls:
+
+        print(response_message.tool_calls)
+
+        messages.append(response_message)
+        for tool_call in response_message.tool_calls:
+            if tool_call.function.name == "bing_search_function":
+                function_args = json.loads(tool_call.function.arguments)
+
+                #search_response = get_search_content(function_args.get('search_term'))
+                search_result = get_search_content(function_args.get('search term'), 'ko-KR', search_key, search_endpoint)
+                messages.append({
+                    "tool_call_id": tool_call.id,
+                    "role" : "tool",
+                    "name" : "bing_search_function",
+                    "content" : search_result
+                })
+
+    res = await client.chat.completions.create(
+        model=model,
+        messages=messages,
+            #{"role": "system", "content": get_prompt_parsing_assistant()},  # 시스템 메시지
+            #{"role": "user", "content": req.message}  # 사용자 메시지
+        #temperature=0.6,
+        stream=True  # 스트림 모드 사용
+    )
+
+    # 스트리밍 응답을 반환합니다.
+    return StreamingResponse(stream_processor(res), media_type='text/event-stream')
 
 # 스크립트가 메인 모듈로 실행될 때, uvicorn을 사용하여 애플리케이션을 실행합니다.
 if __name__ == "__main__":
