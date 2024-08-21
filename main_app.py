@@ -255,8 +255,7 @@ def stream_welcome_word(words):
 def init_schat_session_state():
     #st.set_page_config(layout = "wide") # 기본 세팅을 와이드 뷰 버전으로 세팅
     st.subheader("🥑 Chat with GPT Version 2")  # 애플리케이션의 제목을 설정
-    st.write("for smart Cho :blue[ʕ⁎̯͡⁎ʔ༄]")
-    st.write("*(왤케 아프니 gpt야..)*")
+    st.write("for smart Cho :blue[ʕ⁎̯͡⁎ʔ༄]   *(왜 자꾸 아프니 gpt야..)*")
     st.divider()
 
     # 모델 선택을 위한 selectbox 추가
