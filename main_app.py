@@ -5,7 +5,7 @@ import asyncio  # 비동기 작업을 위한 asyncio 모듈
 import httpx  # 비동기 HTTP 요청을 위한 httpx 모듈
 from io import BytesIO
 import os, requests
-
+import time
 
 ###################
 # API 요청 함수 정의 #
@@ -243,16 +243,19 @@ def search_main():
             except KeyError:
                 pass
 
+def stream_welcome_word(words):
+    for word in words.split(" "):
+        yield word + " "
+        time.sleep(0.2)
+
 ###################
 # 채팅 주요 함수 정의 #
 ###################
 # 세션 상태를 초기화하는 함수
 def init_schat_session_state():
     #st.set_page_config(layout = "wide") # 기본 세팅을 와이드 뷰 버전으로 세팅
-    st.title("🥑 Chat with GPT Version 2")  # 애플리케이션의 제목을 설정
-    st.subheader(":blue[For Smart Cho]")  # 정보글을 출력
-    #st.write(":tornado: 	:umbrella_with_rain_drops:")
-    #st.write(":red[오류 나는 거 고침 (옆에 슬라이더 아직 작동 안함)]")
+    st.subheader("🥑 Chat with GPT Version 2")  # 애플리케이션의 제목을 설정
+    st.write("for smart Cho :blue[ʕ⁎̯͡⁎ʔ༄]")
     st.divider()
 
     # 모델 선택을 위한 selectbox 추가
@@ -290,23 +293,27 @@ def init_schat_session_state():
 
     # 애플리케이션 재실행 시, 기존 채팅 메시지를 표시
     for message in st.session_state.search_messages:
-        with st.chat_message(message["role"]):
-            st.markdown(message["content"])  # 기존 메시지를 마크다운 형식으로 출력
+        role = message["role"]
+        if role == "user":
+            avatar = "🪽"
+        else:
+            avatar = "🐳"
+        with st.chat_message(role, avatar=avatar):
+            st.markdown(f"{message['content']}")
 
 # 챗 메시지를 처리하는 비동기 함수
 async def handle_search_chat(message: str):
     st.session_state.search_messages.append({"role": "user", "content": message})  # 사용자가 보낸 메시지를 세션 상태에 추가
-    with st.chat_message("user"):  # 사용자 메시지 영역을 생성
+    with st.chat_message("user", avatar="🪽"):  # 사용자 메시지 영역을 생성
         st.markdown(message)  # 사용자의 메시지를 마크다운 형식으로 출력
-    #print(message)  # 디버깅을 위해 메시지를 출력
 
     full_response = ""
     message_placeholder = st.empty()  # 응답 메시지를 위한 빈 공간 생성
-    #async for chunk in request_chat_api(message):  # 챗봇 API로부터 응답을 청크 단위로 받음
-    async for chunk in request_search_chat_api(st.session_state.search_messages, st.session_state.model):
+    
+    async for chunk in request_search_chat_api(st.session_state.search_messages, st.session_state.model): # 챗봇 API로부터 응답을 청크 단위로 받음
         full_response += chunk  # 응답 청크를 누적
         message_placeholder.markdown(full_response)  # 누적된 응답을 마크다운 형식으로 출력
-        await asyncio.sleep(0.025)  # 약간의 지연을 두어 비동기 처리를 원활하게 함
+        await asyncio.sleep(0.025)
 
     st.session_state.search_messages.append({"role": "assistant", "content": full_response})  # 어시스턴트의 응답을 세션 상태에 추가
 
@@ -323,8 +330,7 @@ def search_chat_main():
 # 서비스 메인 함수 정의 #
 ###################
 def main():
-    #st.sidebar.title("Navigation")
-    #selection = st.sidebar.radio("Go to", ['Chat', "Search Engine", "Image Generation", "Chat_v2"])
+    #st.set_page_config(layout = "wide")
 
     with st.sidebar:
         selection = option_menu("Go to", ["Chat_V2", "Search Engine", "Image Generation", "Chat"],
@@ -351,5 +357,4 @@ def main():
     st.sidebar.markdown("<br>", unsafe_allow_html=True)
 
 if __name__ == "__main__":  # 메인 스크립트로 실행될 때 (import되지 않고 직접 실행될 때)
-    #chat_main()
     main()  # 챗봇 애플리케이션 시작
