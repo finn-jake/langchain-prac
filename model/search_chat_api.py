@@ -97,20 +97,23 @@ def get_search_content(term, mkt, key, endpoint):
 
     urls, contents = [], []
     res_urls = []
-    
-    for web_value in res["webPages"]["value"]:
-        urls.append(web_value['url'])
+    try:
+        for web_value in res["webPages"]["value"]:
+            urls.append(web_value['url'])
 
-    for url in urls[:3]:
-        try:
-            res = requests.get(url, headers = web_header)
-            res.raise_for_status() # 웹페이지의 상태가 정상인지 확인
-            soup = BeautifulSoup(res.text, "lxml")
+        for url in urls[:3]:
+            try:
+                res = requests.get(url, headers = web_header)
+                res.raise_for_status() # 웹페이지의 상태가 정상인지 확인
+                soup = BeautifulSoup(res.text, "lxml")
 
-            contents.append(soup.text.replace('\n', ' ').replace('  ', ' '))
-            res_urls.append(url)
-        except:
-            pass
+                contents.append(soup.text.replace('\n', ' ').replace('  ', ' '))
+                res_urls.append(url)
+            except:
+                pass
+    except:
+        contents.append('')
+        res_urls.append('')
     
     result = {"search term" : term}
     if len(contents) >= 1:
