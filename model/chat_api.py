@@ -85,7 +85,7 @@ async def chat(req: ChatRequest):
         stream=True  # 스트림 모드 사용
     )
 
-    print(req.messages[-1]['content'])  # 사용자 메시지를 콘솔에 출력합니다.
+    #print(req.messages[-1]['content'])  # 사용자 메시지를 콘솔에 출력합니다.
     #res_ = res.choices[0].message.model_dump()["content"]
 
     # 스트리밍 응답을 반환합니다.

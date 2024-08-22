@@ -47,7 +47,7 @@ def get_search(query, mkt, key, endpoint):
 
 @app.post("/search")
 def search_news(req: searchRequest):
-    print(req.query)
+    #print(req.query)
 
     if req.search_type == 'news':
         res = get_news(req.query, req.mkt, search_key, news_endpoint)

@@ -47,7 +47,7 @@ def imageGen(req: ImageGenRequest):
         prompt = req.message,
         n = 1)
     
-    print(req.message)
+    #print(req.message)
     image_url = json.loads(result.model_dump_json())['data'][0]['url']
 
     return {"message" :image_url}

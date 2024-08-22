@@ -198,7 +198,7 @@ async def chat(req: ChatRequest):
         model = "hatcheryOpenaiCanadaGPT4o"
 
     messages = req.messages
-    print(req.messages[-1]['content'])
+    # print(req.messages[-1]['content'])
 
     response = await client.chat.completions.create(
                 model=model,
