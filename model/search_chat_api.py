@@ -51,6 +51,12 @@ client = AsyncAzureOpenAI(
     api_key=api_key
 )
 
+client_ = AzureOpenAI(
+    api_version=api_version,
+    azure_endpoint=azure_endpoint,
+    api_key=api_key
+)
+
 tools = [
     {
         "type": "function",
@@ -82,6 +88,10 @@ class ChatRequest(BaseModel):
     #message: str
     messages : List[Dict[str, str]]
     model: str = default_model
+
+class TermRequest(BaseModel):
+    #message: str
+    messages : str
 
 # 시스템 메시지를 반환하는 함수
 def get_prompt_parsing_assistant():
@@ -208,6 +218,20 @@ async def chat(req: ChatRequest):
                 stream = True)
     
     return StreamingResponse(stream_processor(response, messages, model), media_type='text/event-stream')
+
+@app.post("/get_search_term")
+def get_term(req: TermRequest):
+    model = "hatcheryOpenaiCanadaGPT4o"
+    messages = [{"role": "user", "content": req.messages}]
+
+    response = client_.chat.completions.create(
+                model=model,
+                messages=messages,
+                tools=tools,
+                tool_choice="auto")
+
+    response_message = response.choices[0].message
+    return {"content": response_message}
 
 
 # 스크립트가 메인 모듈로 실행될 때, uvicorn을 사용하여 애플리케이션을 실행합니다.

@@ -7,6 +7,8 @@ from io import BytesIO
 import os, requests
 import time
 
+import json
+
 ###################
 # API 요청 함수 정의 #
 ###################
@@ -14,6 +16,8 @@ API_BASE_URL = "http://localhost:123/chat"  # 챗봇 API의 기본 URL
 API_IMAGE_URL = "http://localhost:124/image" # 이미지 생성 URL
 API_SEARCH_URL = "http://localhost:125/search" # 검색 API의 기본 URL
 API_SEARCH_CHAT_URL = "http://localhost:126/search_chat"
+API_GET_SEARCH_TERM = "http://localhost:126/get_search_term"
+
 
 # 챗봇 API에 요청을 보내기 위한 비동기 함수
 async def request_chat_api(messages, model):
@@ -40,6 +44,7 @@ def request_search_api(query, search_type, mkt):
     resp = requests.post(API_SEARCH_URL, json = {"query": query,
                                                  "search_type": search_type,
                                                  "mkt": mkt})
+                                                 
 
     resp = resp.json()
     return resp["content"]
@@ -55,6 +60,15 @@ async def request_search_chat_api(messages, model):
             # API 응답을 스트리밍 방식으로 받음
             async for chunk in response.aiter_text():
                 yield chunk  # 응답 데이터를 청크 단위로 반환
+
+
+def request_search_term_api(messages):
+    resp = requests.post(API_GET_SEARCH_TERM,
+                        json={"messages": messages},
+                        timeout = None)
+
+    resp = resp.json()
+    return resp["content"]
 
 ###################
 # 채팅 주요 함수 정의 #
@@ -194,68 +208,78 @@ def handle_search(search_keyword:str):
 
 def search_main():
     init_search_session_state()
+    st.subheader("🐋 Search Support Engine")
+    st.write("under test")
 
-    st.subheader("🐋 Bing Search Engine")
-    prompt = st.text_input("Search Keyword:", st.session_state.search_keyword)
+    if st.session_state.search_messages:
+        tmp_search_keyword = request_search_term_api(st.session_state.search_messages[-2]['content'])
 
-    if prompt != st.session_state.search_keyword:
-        st.session_state.search_keyword = prompt
+        if tmp_search_keyword['tool_calls']:
 
-    if prompt.strip():
-        st.session_state.search_keyword = prompt
-        handle_search(prompt)
+            tool_call = tmp_search_keyword['tool_calls'][0]
+            function_args = json.loads(tool_call['function']['arguments'])
 
-    if st.session_state.search_results:
-        # 뉴스 검색 결과
-        if st.session_state.type_ == "News":
-            contents = st.session_state.search_results
-            for content in contents:
-                st.markdown(f"[{content['name']}]({content['url']})")
-                st.markdown(content['description'])
-                st.divider()
-        
-        # 일반 검색 결과
-        elif st.session_state.type_ == "General":
-            contents = st.session_state.search_results
-            try:
-                for content in contents["webPages"]["value"]:
-                    st.markdown(f"[{content['name']}]({content['url']})")
-                    st.markdown(content['snippet'])
-                    st.divider()
-            except KeyError:
-                pass
+            st.session_state.search_keyword = function_args.get('search term')
+            st.write(f"Search Term: :red[{st.session_state.search_keyword}]")
 
-            try:
-                for content in contents["relatedSearches"]["value"]:
-                    st.markdown(content['text'])
-                    st.markdown(f"[{content['webSearchUrl']}]({content['webSearchUrl']})")
-            except KeyError:
-                pass
+            prompt = st.session_state.search_keyword
 
-        # 이미지 검색 결과
-        elif st.session_state.type_ == "Image":
-            contents = st.session_state.search_results
-            try:
-                for content in contents["value"]:
-                    st.markdown(f"[{content['name']}]({content['thumbnailUrl']})")
-                    st.markdown(content['datePublished'])
-                    st.divider()
-            except KeyError:
-                pass
+            if prompt != st.session_state.search_keyword:
+                st.session_state.search_keyword = prompt
 
-def stream_welcome_word(words):
-    for word in words.split(" "):
-        yield word + " "
-        time.sleep(0.2)
+            if prompt.strip():
+                st.session_state.search_keyword = prompt
+                handle_search(prompt)
+
+            if st.session_state.search_results:
+                # 뉴스 검색 결과
+                if st.session_state.type_ == "News":
+                    contents = st.session_state.search_results
+                    for content in contents:
+                        st.markdown(f"[{content['name']}]({content['url']})")
+                        st.markdown(content['description'])
+                        st.divider()
+                
+                # 일반 검색 결과
+                elif st.session_state.type_ == "General":
+                    contents = st.session_state.search_results
+                    try:
+                        for content in contents["webPages"]["value"]:
+                            st.markdown(f"[{content['name']}]({content['url']})")
+                            st.markdown(content['snippet'])
+                            st.divider()
+                    except KeyError:
+                        pass
+
+                    try:
+                        for content in contents["relatedSearches"]["value"]:
+                            st.markdown(content['text'])
+                            st.markdown(f"[{content['webSearchUrl']}]({content['webSearchUrl']})")
+                    except KeyError:
+                        pass
+
+                # 이미지 검색 결과
+                elif st.session_state.type_ == "Image":
+                    contents = st.session_state.search_results
+                    try:
+                        for content in contents["value"]:
+                            st.markdown(f"[{content['name']}]({content['thumbnailUrl']})")
+                            st.markdown(content['datePublished'])
+                            st.divider()
+                    except KeyError:
+                        pass
 
 ###################
 # 채팅 주요 함수 정의 #
 ###################
 # 세션 상태를 초기화하는 함수
+
 def init_schat_session_state():
+
     #st.set_page_config(layout = "wide") # 기본 세팅을 와이드 뷰 버전으로 세팅
-    st.subheader("🥑 Chat with GPT Version 2")  # 애플리케이션의 제목을 설정
-    st.write("for smart Cho :blue[ʕ⁎̯͡⁎ʔ༄]   *(왜 자꾸 아프니 gpt야..)*")
+    st.subheader("🥑 Chat with GPT")  # 애플리케이션의 제목을 설정
+    st.write("for smart Cho :blue[ʕ⁎̯͡⁎ʔ༄]")
+    st.write("ex, Which BTS member was the last to go to the military 2024?")
     st.divider()
 
     # 모델 선택을 위한 selectbox 추가
@@ -286,6 +310,8 @@ def init_schat_session_state():
         step = 1,
         key = "keyword_var"
     )
+    st.sidebar.markdown("<br>", unsafe_allow_html=True)
+    st.sidebar.markdown("<br>", unsafe_allow_html=True)
     
     # 채팅 히스토리를 초기화
     if "search_messages" not in st.session_state:
@@ -324,16 +350,46 @@ def search_chat_main():
     if message := st.chat_input(""):  # 챗 입력란에 입력된 메시지를 읽어옴
         loop = asyncio.new_event_loop()  # 새로운 이벤트 루프를 생성
         asyncio.set_event_loop(loop)  # 생성한 이벤트 루프를 현재 루프로 설정
-        loop.run_until_complete(handle_search_chat(message))  # handle_chat 함수를 실행하여 사용자의 메시지를 처리 
-        
+        loop.run_until_complete(handle_search_chat(message))  # handle_chat 함수를 실행하여 사용자의 메시지를 처리
+
+#st.set_page_config(layout = "wide")
+#col1, col2 = st.columns(2)
+
 ###################
 # 서비스 메인 함수 정의 #
 ###################
 def main():
-    #st.set_page_config(layout = "wide")
+    st.set_page_config(layout = "wide")
+    col1, col2 = st.columns(2)
+
+    chat_input_style = f"""
+    <style>
+        .stChatInput {{
+          position: fixed;
+          bottom: 3rem;
+        }}
+
+    </style>
+    """
+    st.markdown(chat_input_style, unsafe_allow_html=True)
+
+    html_style = '''
+    <style>
+    div:has( >.element-container div.floating) {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+    }
+
+    div.floating {
+        height:0%;
+    }
+    </style>
+    '''
+    st.markdown(html_style, unsafe_allow_html=True)
 
     with st.sidebar:
-        selection = option_menu("Go to", ["Chat_V2", "Search Engine", "Image Generation", "Chat"],
+        selection = option_menu("Go to", ["Chat", "Image Generation"],
                             icons=['chat', 'file-earmark-play', 'brush', 'activity'],
                             menu_icon="app-indicator", default_index=0,
                             styles={
@@ -345,14 +401,20 @@ def main():
     st.sidebar.markdown("<br>", unsafe_allow_html=True)
     st.sidebar.markdown("<br>", unsafe_allow_html=True)
 
-    if selection == "Chat":
+    if selection == "Chat_":
         chat_main()
     elif selection == "Image Generation":
         imagegen_main()
     elif selection == "Search Engine":
         search_main()
-    elif selection == "Chat_V2":
-        search_chat_main()
+    elif selection == "Chat":
+        with col1:
+            search_chat_main()
+        with col2:
+            st.markdown('<div class="floating"></div>', unsafe_allow_html=True)
+            with st.container():
+                #st.markdown('<div class="floating"></div>', unsafe_allow_html=True)
+                search_main()
 
     st.sidebar.markdown("<br>", unsafe_allow_html=True)
 
