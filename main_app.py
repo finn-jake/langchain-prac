@@ -1,5 +1,6 @@
 import streamlit as st  # Streamlit을 이용하여 웹 애플리케이션을 구축
 from streamlit_option_menu import option_menu
+from pyparsing import empty
 
 import asyncio  # 비동기 작업을 위한 asyncio 모듈
 import httpx  # 비동기 HTTP 요청을 위한 httpx 모듈
@@ -211,6 +212,7 @@ def search_main():
     st.subheader("🐋 Search Support Engine")
     st.write("under test")
 
+
     if st.session_state.search_messages:
         tmp_search_keyword = request_search_term_api(st.session_state.search_messages[-2]['content'])
 
@@ -278,8 +280,7 @@ def init_schat_session_state():
 
     #st.set_page_config(layout = "wide") # 기본 세팅을 와이드 뷰 버전으로 세팅
     st.subheader("🥑 Chat with GPT")  # 애플리케이션의 제목을 설정
-    st.write("ex, 오늘 서울 날씨 알려줘, Which BTS member was the last to go to the military 2024?")
-    st.divider()
+    st.write(":gray[* ex, 오늘 서울 날씨 알려줘, Which BTS member was the last to go to the military 2024? *]")
 
     # 모델 선택을 위한 selectbox 추가
     if "model" not in st.session_state:
@@ -359,7 +360,7 @@ def search_chat_main():
 ###################
 def main():
     st.set_page_config(layout = "wide")
-    col1, col2 = st.columns(2)
+    col1, empty1, col2 = st.columns([0.5, 0.1, 0.4])
 
     chat_input_style = f"""
     <style>
@@ -409,6 +410,10 @@ def main():
     elif selection == "Chat":
         with col1:
             search_chat_main()
+
+        with empty1:
+            empty()
+
         with col2:
             st.markdown('<div class="floating"></div>', unsafe_allow_html=True)
             with st.container():
