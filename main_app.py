@@ -278,8 +278,7 @@ def init_schat_session_state():
 
     #st.set_page_config(layout = "wide") # 기본 세팅을 와이드 뷰 버전으로 세팅
     st.subheader("🥑 Chat with GPT")  # 애플리케이션의 제목을 설정
-    st.write("for smart Cho :blue[ʕ⁎̯͡⁎ʔ༄]")
-    st.write("ex, Which BTS member was the last to go to the military 2024?")
+    st.write("ex, 오늘 서울 날씨 알려줘, Which BTS member was the last to go to the military 2024?")
     st.divider()
 
     # 모델 선택을 위한 selectbox 추가
