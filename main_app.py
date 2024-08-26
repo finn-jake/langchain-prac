@@ -210,7 +210,7 @@ def handle_search(search_keyword:str):
 def search_main():
     init_search_session_state()
     st.subheader("🐋 Search Support Engine")
-    st.write("under test")
+    #st.write("under test")
 
 
     if st.session_state.search_messages:
