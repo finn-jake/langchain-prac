@@ -376,13 +376,11 @@ def main():
     html_style = '''
     <style>
     div:has( >.element-container div.floating) {
-        display: flex;
-        flex-direction: column;
-        position: fixed;
-    }
-
-    div.floating {
-        height:0%;
+        top: 0;
+        bottom:0;
+        position:fixed;
+        overflow-y:scroll;
+        overflow-x:hidden;
     }
     </style>
     '''
@@ -415,10 +413,11 @@ def main():
             empty()
 
         with col2:
-            st.markdown('<div class="floating"></div>', unsafe_allow_html=True)
+            #st.markdown('<div class="floating"></div>', unsafe_allow_html=True)
             with st.container():
-                #st.markdown('<div class="floating"></div>', unsafe_allow_html=True)
-                search_main()
+                st.markdown('<div class="floating"></div>', unsafe_allow_html=True)
+                with st.container():
+                    search_main()
 
     st.sidebar.markdown("<br>", unsafe_allow_html=True)
 
