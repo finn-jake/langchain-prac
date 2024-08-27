@@ -214,7 +214,7 @@ def search_main():
 
 
     if st.session_state.search_messages:
-        tmp_search_keyword = request_search_term_api(st.session_state.search_messages[-2]['content'])
+        tmp_search_keyword = request_search_term_api(st.session_state.search_messages[:-1])
 
         if tmp_search_keyword['tool_calls']:
 

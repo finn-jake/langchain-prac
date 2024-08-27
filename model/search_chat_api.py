@@ -91,7 +91,7 @@ class ChatRequest(BaseModel):
 
 class TermRequest(BaseModel):
     #message: str
-    messages : str
+    messages : List[Dict[str, str]]
 
 # 시스템 메시지를 반환하는 함수
 def get_prompt_parsing_assistant():
@@ -222,7 +222,7 @@ async def chat(req: ChatRequest):
 @app.post("/get_search_term")
 def get_term(req: TermRequest):
     model = "hatcheryOpenaiCanadaGPT4o"
-    messages = [{"role": "user", "content": req.messages}]
+    messages = req.messages
 
     response = client_.chat.completions.create(
                 model=model,
