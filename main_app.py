@@ -371,9 +371,6 @@ def main():
           bottom: 3rem;
           z-index: 1000;
         }
-        .chat-messages {
-            margin-bottom: 3rem; /* spațiu la partea de jos pentru input */
-        }
     """
     st.markdown(chat_input_style, unsafe_allow_html=True)
 
