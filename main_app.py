@@ -334,7 +334,7 @@ async def handle_search_chat(message: str):
         st.markdown(message)  # 사용자의 메시지를 마크다운 형식으로 출력
 
     full_response = ""
-    assistant_message = st.chat_message("assistant", avatar = "😤")
+    assistant_message = st.chat_message("assistant", avatar = "🐳")
     with assistant_message:
         message_placeholder = st.empty()
     
