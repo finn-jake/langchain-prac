@@ -348,7 +348,7 @@ async def handle_search_chat(message: str):
 # 챗봇 애플리케이션의 주요 함수
 def search_chat_main():
     init_schat_session_state()  # 세션 상태를 초기화
-
+    
     if message := st.chat_input(""):  # 챗 입력란에 입력된 메시지를 읽어옴
         loop = asyncio.new_event_loop()  # 새로운 이벤트 루프를 생성
         asyncio.set_event_loop(loop)  # 생성한 이벤트 루프를 현재 루프로 설정
@@ -364,14 +364,16 @@ def main():
     st.set_page_config(layout = "wide")
     col1, empty1, col2 = st.columns([0.5, 0.1, 0.4])
 
-    chat_input_style = f"""
+    chat_input_style = """
     <style>
-        .stChatInput {{
+        .stChatInput {
           position: fixed;
           bottom: 3rem;
-        }}
-
-    </style>
+          z-index: 1000;
+        }
+        .chat-messages {
+            margin-bottom: 3rem; /* spațiu la partea de jos pentru input */
+        }
     """
     st.markdown(chat_input_style, unsafe_allow_html=True)
 
