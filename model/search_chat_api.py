@@ -122,6 +122,7 @@ def get_search_content(term, mkt, key, endpoint):
             except:
                 pass
     except:
+        
         contents.append('')
         res_urls.append('')
     
@@ -194,7 +195,7 @@ async def stream_processor(response, messages, model):
                 delta = chunk.choices[0].delta     # 첫 번째 선택의 델타를 얻음
                 if hasattr(delta, 'content') and delta.content:
                     yield delta.content
-        
+
 
 
 # 채팅 엔드포인트를 정의하는 FastAPI POST 경로

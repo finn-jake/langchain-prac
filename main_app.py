@@ -334,7 +334,9 @@ async def handle_search_chat(message: str):
         st.markdown(message)  # 사용자의 메시지를 마크다운 형식으로 출력
 
     full_response = ""
-    message_placeholder = st.empty()  # 응답 메시지를 위한 빈 공간 생성
+    assistant_message = st.chat_message("assistant", avatar = "😤")
+    with assistant_message:
+        message_placeholder = st.empty()
     
     async for chunk in request_search_chat_api(st.session_state.search_messages, st.session_state.model): # 챗봇 API로부터 응답을 청크 단위로 받음
         full_response += chunk  # 응답 청크를 누적
